@@ -1,0 +1,535 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | Prasanna B</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* Contact Layout */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1.1fr 1.6fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    /* Info Panel */
+    .contact-info-panel { position: sticky; top: 90px; }
+
+    .contact-info-card {
+      background: var(--gradient-hero);
+      border-radius: var(--radius-xl);
+      padding: 42px 36px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-info-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2310b981' fill-opacity='0.08'%3E%3Ccircle cx='20' cy='20' r='1.5'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .contact-info-inner { position: relative; }
+
+    .contact-info-header {
+      margin-bottom: 36px;
+    }
+
+    .contact-info-header h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .contact-info-header p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+    }
+
+    .contact-info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-bottom: 36px;
+    }
+
+    .contact-info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .ci-icon {
+      width: 46px; height: 46px;
+      background: rgba(16,185,129,0.2);
+      border: 1px solid rgba(16,185,129,0.35);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .ci-label {
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+
+    .ci-value {
+      font-size: 0.9rem;
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    .ci-value a {
+      color: var(--white);
+      transition: var(--transition);
+    }
+
+    .ci-value a:hover { color: var(--accent); }
+
+    .contact-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.12);
+      margin: 28px 0;
+    }
+
+    .contact-social-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .contact-social-btn {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      padding: 10px 16px;
+      color: rgba(255,255,255,0.8);
+      font-size: 0.84rem;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .contact-social-btn:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    /* Contact Form */
+    .contact-form-wrap {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 44px;
+    }
+
+    .form-header { margin-bottom: 36px; }
+
+    .form-header h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .form-header p { font-size: 0.9rem; color: var(--text-light); }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .form-group { margin-bottom: 22px; }
+
+    .form-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .form-label span { color: var(--primary); }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      padding: 13px 16px;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text-dark);
+      background: var(--white);
+      transition: var(--transition);
+      outline: none;
+      resize: none;
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder { color: var(--text-light); }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(16,185,129,0.1);
+    }
+
+    .form-textarea { min-height: 140px; }
+
+    .form-submit {
+      width: 100%;
+      padding: 15px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      background: var(--gradient);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 6px 20px rgba(16,185,129,0.35);
+    }
+
+    .form-submit:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(16,185,129,0.45);
+    }
+
+    /* Availability Banner */
+    .availability-banner {
+      background: var(--primary-pale);
+      border: 1.5px solid var(--border-strong);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 30px;
+    }
+
+    .avail-dot {
+      width: 10px; height: 10px;
+      background: var(--primary);
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: pulse-dot 1.5s ease infinite;
+    }
+
+    .avail-text {
+      font-size: 0.88rem;
+      color: var(--primary-darker);
+      font-weight: 600;
+    }
+
+    /* FAQ / Quick Questions */
+    .faq-section { background: var(--light-bg); }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .faq-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: var(--transition);
+    }
+
+    .faq-card:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .faq-q {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .faq-q i { color: var(--primary); margin-top: 2px; flex-shrink: 0; }
+
+    .faq-a { font-size: 0.87rem; color: var(--text-light); line-height: 1.7; }
+
+    @media (max-width: 900px) {
+      .contact-layout { grid-template-columns: 1fr; }
+      .contact-info-panel { position: static; }
+      .form-row { grid-template-columns: 1fr; }
+      .faq-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="scroll-progress"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html" class="navbar-logo">
+    <div class="logo-badge">PB</div>
+    <div class="logo-text">
+      <div class="logo-name">Prasanna B</div>
+      <div class="logo-role">AI & ML Engineer</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="skills.html">Skills</a>
+    <a href="projects.html">Projects</a>
+    <a href="experience.html">Experience</a>
+    <a href="contact.html" class="nav-cta">Contact</a>
+  </div>
+  <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu">
+  <button class="mobile-close"><i class="fa-solid fa-xmark"></i></button>
+  <a href="index.html">Home</a><a href="about.html">About</a>
+  <a href="skills.html">Skills</a><a href="projects.html">Projects</a>
+  <a href="experience.html">Experience</a><a href="contact.html">Contact</a>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-content">
+    <div class="page-badge"><i class="fa-solid fa-paper-plane"></i> Contact</div>
+    <h1>Let's Build Something<br /><span>Amazing Together</span></h1>
+    <p>Got a project idea, a job opportunity, or just want to say hi? I'm always open to great conversations.</p>
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fa-solid fa-chevron-right fa-xs"></i>
+      <span>Contact</span>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT SECTION -->
+<section style="background:var(--white);">
+  <div class="contact-layout">
+
+    <!-- Info Panel -->
+    <div class="contact-info-panel reveal-left">
+      <div class="contact-info-card">
+        <div class="contact-info-inner">
+          <div class="contact-info-header">
+            <h3>Get In Touch</h3>
+            <p>I'm currently open to new opportunities - freelance projects, full-time roles, or collaborations in AI/ML and GenAI.</p>
+          </div>
+
+          <div class="contact-info-list">
+            <div class="contact-info-item">
+              <div class="ci-icon"><i class="fa-solid fa-envelope"></i></div>
+              <div>
+                <div class="ci-label">Email</div>
+                <div class="ci-value"><a href="mailto:prasannamb4362@gmail.com">prasannamb4362@gmail.com</a></div>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="ci-icon"><i class="fa-solid fa-phone"></i></div>
+              <div>
+                <div class="ci-label">Phone</div>
+                <div class="ci-value"><a href="tel:+918610318934">+91 8610318934</a></div>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="ci-icon"><i class="fa-solid fa-location-dot"></i></div>
+              <div>
+                <div class="ci-label">Location</div>
+                <div class="ci-value">Coimbatore, Tamil Nadu, India</div>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="ci-icon"><i class="fa-solid fa-clock"></i></div>
+              <div>
+                <div class="ci-label">Response Time</div>
+                <div class="ci-value">Usually within 24 hours</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-divider"></div>
+
+          <div style="margin-bottom:16px;font-size:0.78rem;font-weight:600;color:rgba(255,255,255,0.45);letter-spacing:1px;text-transform:uppercase;">Connect With Me</div>
+          <div class="contact-social-row">
+            <a href="https://github.com/prasannab4362" target="_blank" class="contact-social-btn">
+              <i class="fa-brands fa-github"></i> GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/prasanna-balaji18/" target="_blank" class="contact-social-btn">
+              <i class="fa-brands fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="reveal-right">
+      <div class="contact-form-wrap">
+        <div class="availability-banner">
+          <div class="avail-dot"></div>
+          <div class="avail-text">
+            <strong>Available for Work</strong> - Open to new opportunities in AI/ML, Data Science, and GenAI Engineering
+          </div>
+        </div>
+
+        <div class="form-header">
+          <h3>Send Me a Message</h3>
+          <p>Fill out the form below and I'll get back to you as soon as possible.</p>
+        </div>
+
+        <form id="contact-form" action="mailto:prasannamb4362@gmail.com" method="post" enctype="text/plain">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="name">Full Name <span>*</span></label>
+              <input class="form-input" type="text" id="name" name="name" placeholder="Your full name" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="email">Email Address <span>*</span></label>
+              <input class="form-input" type="email" id="email" name="email" placeholder="your@email.com" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="subject">Subject <span>*</span></label>
+            <select class="form-select" id="subject" name="subject" required>
+              <option value="" disabled selected>Select inquiry type</option>
+              <option value="job">Job Opportunity / Hire Me</option>
+              <option value="freelance">Freelance Project</option>
+              <option value="collaboration">Collaboration / Partnership</option>
+              <option value="consultation">AI/ML Consultation</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="company">Company / Organization</label>
+            <input class="form-input" type="text" id="company" name="company" placeholder="Your company (optional)" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="message">Message <span>*</span></label>
+            <textarea class="form-textarea" id="message" name="message" placeholder="Tell me about your project, opportunity, or what you'd like to discuss..." required></textarea>
+          </div>
+
+          <button type="submit" class="form-submit">
+            <i class="fa-solid fa-paper-plane"></i>
+            Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="section-header center reveal">
+    <div class="section-label"><i class="fa-solid fa-circle-question"></i> FAQ</div>
+    <h2 class="section-title">Common <span>Questions</span></h2>
+  </div>
+
+  <div class="faq-grid">
+    <div class="faq-card reveal delay-1">
+      <div class="faq-q"><i class="fa-solid fa-briefcase"></i> Are you currently open to new roles?</div>
+      <p class="faq-a">Yes! I'm actively open to AI/ML Engineer, Data Scientist, and Python Developer positions - both full-time and contract, on-site or remote.</p>
+    </div>
+    <div class="faq-card reveal delay-2">
+      <div class="faq-q"><i class="fa-solid fa-laptop-code"></i> Can you build custom AI solutions?</div>
+      <p class="faq-a">Absolutely. I specialize in building domain-specific RAG chatbots, CV pipelines, ML models, and Streamlit-based AI applications tailored to your use case.</p>
+    </div>
+    <div class="faq-card reveal delay-3">
+      <div class="faq-q"><i class="fa-solid fa-globe"></i> Do you work remotely or on-site?</div>
+      <p class="faq-a">I'm flexible - I can work remotely, hybrid, or on-site. Currently based in Coimbatore, Tamil Nadu, and open to relocation for the right opportunity.</p>
+    </div>
+    <div class="faq-card reveal delay-4">
+      <div class="faq-q"><i class="fa-solid fa-clock"></i> How quickly do you respond?</div>
+      <p class="faq-a">I typically respond within 24 hours on weekdays. For urgent inquiries, feel free to reach me directly at prasannamb4362@gmail.com or +91 8610318934.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="logo-badge">PB</div>
+        <div class="logo-text">
+          <div class="logo-name">Prasanna B</div>
+          <div class="logo-role">AI & ML Engineer</div>
+        </div>
+      </div>
+      <p>Building intelligent AI products with Python, LangChain, TensorFlow, and Gemini API.</p>
+      <div class="footer-social">
+        <a href="https://github.com/prasannab4362" target="_blank" class="social-btn"><i class="fa-brands fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/prasanna-balaji18/" target="_blank" class="social-btn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="mailto:prasannamb4362@gmail.com" class="social-btn"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-heading">Quick Links</div>
+      <ul class="footer-links">
+        <li><a href="index.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Home</a></li>
+        <li><a href="about.html"><i class="fa-solid fa-chevron-right fa-xs"></i> About</a></li>
+        <li><a href="skills.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Skills</a></li>
+        <li><a href="projects.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Projects</a></li>
+        <li><a href="experience.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Experience</a></li>
+        <li><a href="contact.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Contact</div>
+      <ul class="footer-links">
+        <li><a href="mailto:prasannamb4362@gmail.com"><i class="fa-solid fa-envelope fa-xs"></i> prasannamb4362@gmail.com</a></li>
+        <li><a href="tel:+918610318934"><i class="fa-solid fa-phone fa-xs"></i> +91 8610318934</a></li>
+        <li><a href="#"><i class="fa-solid fa-location-dot fa-xs"></i> Coimbatore, Tamil Nadu</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 <span>Prasanna B</span>. Crafted with <span>heart</span> & Python.</p>
+    <p>AI & ML Engineer | Coimbatore, India</p>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
+
+

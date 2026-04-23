@@ -1,0 +1,694 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skills | Prasanna B</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* Skill Category Cards */
+    .skill-category-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      transition: var(--transition);
+    }
+
+    .skill-category-card:hover {
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow);
+      transform: translateY(-4px);
+    }
+
+    .skill-cat-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+      border-bottom: 2px solid var(--primary-pale);
+    }
+
+    .skill-cat-icon {
+      width: 50px; height: 50px;
+      background: var(--gradient);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+
+    .skill-cat-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .skill-cat-count {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      font-weight: 500;
+    }
+
+    /* Hex Skill Badges */
+    .skill-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .skill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--light-bg);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 14px;
+      font-size: 0.83rem;
+      font-weight: 600;
+      color: var(--text-mid);
+      transition: var(--transition);
+      cursor: default;
+    }
+
+    .skill-badge:hover {
+      background: var(--primary-pale);
+      border-color: var(--primary);
+      color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .skill-badge .badge-dot {
+      width: 7px; height: 7px;
+      background: var(--primary);
+      border-radius: 50%;
+    }
+
+    /* Proficiency Section */
+    .proficiency-section { background: var(--light-bg); }
+
+    .prof-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .prof-column-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .prof-column-title i { color: var(--primary); }
+
+    /* Tools Grid */
+    .tools-section { background: var(--white); }
+
+    .tool-card {
+      background: var(--light-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 18px;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .tool-card:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-sm);
+      transform: translateY(-5px);
+    }
+
+    .tool-emoji { font-size: 2.1rem; margin-bottom: 10px; color: var(--primary-dark); }
+    .tool-name { font-size: 0.85rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
+    .tool-cat { font-size: 0.72rem; color: var(--text-light); }
+
+    /* Circular progress (CSS only) */
+    .circular-chart-section {
+      background: var(--gradient-hero);
+      padding: 90px 5%;
+    }
+
+    .circ-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .circ-item { text-align: center; }
+
+    .circ-wrap {
+      position: relative;
+      width: 100px; height: 100px;
+      margin: 0 auto 16px;
+    }
+
+    .circ-svg { transform: rotate(-90deg); }
+
+    .circ-track { fill: none; stroke: rgba(255,255,255,0.1); stroke-width: 8; }
+    .circ-fill {
+      fill: none;
+      stroke-width: 8;
+      stroke: var(--accent);
+      stroke-linecap: round;
+      stroke-dasharray: 251;
+      stroke-dashoffset: 251;
+      transition: stroke-dashoffset 1.4s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .circ-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .circ-pct {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .circ-skill-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.8);
+      margin-top: 4px;
+    }
+
+    @media (max-width: 900px) {
+      .prof-grid { grid-template-columns: 1fr; }
+      .circ-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 600px) {
+      .circ-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<div id="scroll-progress"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html" class="navbar-logo">
+    <div class="logo-badge">PB</div>
+    <div class="logo-text">
+      <div class="logo-name">Prasanna B</div>
+      <div class="logo-role">AI & ML Engineer</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="skills.html">Skills</a>
+    <a href="projects.html">Projects</a>
+    <a href="experience.html">Experience</a>
+    <a href="contact.html" class="nav-cta">Contact</a>
+  </div>
+  <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu">
+  <button class="mobile-close"><i class="fa-solid fa-xmark"></i></button>
+  <a href="index.html">Home</a><a href="about.html">About</a>
+  <a href="skills.html">Skills</a><a href="projects.html">Projects</a>
+  <a href="experience.html">Experience</a><a href="contact.html">Contact</a>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-content">
+    <div class="page-badge"><i class="fa-solid fa-microchip"></i> Technical Skills</div>
+    <h1>Tools, Frameworks &<br /><span>Technologies</span></h1>
+    <p>A comprehensive view of my technical capabilities across AI/ML, data science, and software development.</p>
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fa-solid fa-chevron-right fa-xs"></i>
+      <span>Skills</span>
+    </div>
+  </div>
+</div>
+
+<!-- SKILL CATEGORIES -->
+<section style="background:var(--white);">
+  <div class="section-header center reveal">
+    <div class="section-label"><i class="fa-solid fa-layer-group"></i> Categories</div>
+    <h2 class="section-title">Skill <span>Categories</span></h2>
+    <p class="section-subtitle">Organized by domain - from core AI/ML to full stack development, mobile apps, IoT, hardware prototyping, and development tools.</p>
+  </div>
+
+  <div class="grid-3">
+    <!-- Languages -->
+    <div class="skill-category-card reveal delay-1">
+      <div class="skill-cat-header">
+        <div class="skill-cat-icon"><i class="fa-solid fa-code"></i></div>
+        <div>
+          <div class="skill-cat-title">Programming Languages</div>
+          <div class="skill-cat-count">5 technologies</div>
+        </div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">Python</span><span class="skill-bar-percent">92%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="92%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">SQL</span><span class="skill-bar-percent">78%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="78%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">R</span><span class="skill-bar-percent">72%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="72%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">JavaScript / TypeScript</span><span class="skill-bar-percent">78%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="78%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">Dart</span><span class="skill-bar-percent">74%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="74%"></div></div>
+      </div>
+      <div class="skill-badges">
+        <span class="skill-badge"><span class="badge-dot"></span>Python</span>
+        <span class="skill-badge"><span class="badge-dot"></span>JavaScript</span>
+        <span class="skill-badge"><span class="badge-dot"></span>TypeScript</span>
+        <span class="skill-badge"><span class="badge-dot"></span>Dart</span>
+        <span class="skill-badge"><span class="badge-dot"></span>SQL</span>
+        <span class="skill-badge"><span class="badge-dot"></span>R</span>
+      </div>
+    </div>
+
+    <!-- ML/DL -->
+    <div class="skill-category-card reveal delay-2">
+      <div class="skill-cat-header">
+        <div class="skill-cat-icon"><i class="fa-solid fa-brain"></i></div>
+        <div>
+          <div class="skill-cat-title">ML / Deep Learning</div>
+          <div class="skill-cat-count">5 frameworks</div>
+        </div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">Scikit-learn</span><span class="skill-bar-percent">88%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="88%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">TensorFlow</span><span class="skill-bar-percent">82%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="82%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">PyTorch</span><span class="skill-bar-percent">70%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="70%"></div></div>
+      </div>
+      <div class="skill-badges">
+        <span class="skill-badge"><span class="badge-dot"></span>Scikit-learn</span>
+        <span class="skill-badge"><span class="badge-dot"></span>TensorFlow</span>
+        <span class="skill-badge"><span class="badge-dot"></span>PyTorch</span>
+        <span class="skill-badge"><span class="badge-dot"></span>Keras</span>
+      </div>
+    </div>
+
+    <!-- GenAI -->
+    <div class="skill-category-card reveal delay-3">
+      <div class="skill-cat-header">
+        <div class="skill-cat-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+        <div>
+          <div class="skill-cat-title">Generative & Agentic AI</div>
+          <div class="skill-cat-count">8 tools</div>
+        </div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">LangChain</span><span class="skill-bar-percent">86%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="86%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">AI Agents</span><span class="skill-bar-percent">84%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="84%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">FAISS (RAG)</span><span class="skill-bar-percent">80%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80%"></div></div>
+      </div>
+      <div class="skill-badges">
+        <span class="skill-badge"><span class="badge-dot"></span>LangChain</span>
+        <span class="skill-badge"><span class="badge-dot"></span>Agentic AI</span>
+        <span class="skill-badge"><span class="badge-dot"></span>Gemini API</span>
+        <span class="skill-badge"><span class="badge-dot"></span>Qwen3</span>
+        <span class="skill-badge"><span class="badge-dot"></span>FAISS</span>
+        <span class="skill-badge"><span class="badge-dot"></span>Prompt Eng.</span>
+        <span class="skill-badge"><span class="badge-dot"></span>RAG Systems</span>
+      </div>
+    </div>
+
+    <!-- CV / NLP -->
+    <div class="skill-category-card reveal delay-1">
+      <div class="skill-cat-header">
+        <div class="skill-cat-icon"><i class="fa-solid fa-eye"></i></div>
+        <div>
+          <div class="skill-cat-title">VLM, OCR, Computer Vision & NLP</div>
+          <div class="skill-cat-count">8 libraries</div>
+        </div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">OpenCV</span><span class="skill-bar-percent">82%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="82%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">VLM / OCR Pipelines</span><span class="skill-bar-percent">80%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">spaCy</span><span class="skill-bar-percent">74%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="74%"></div></div>
+      </div>
+      <div class="skill-badges">
+        <span class="skill-badge"><span class="badge-dot"></span>OpenCV</span>
+        <span class="skill-badge"><span class="badge-dot"></span>VLM</span>
+        <span class="skill-badge"><span class="badge-dot"></span>FireRedOCR</span>
+        <span class="skill-badge"><span class="badge-dot"></span>Transformers</span>
+        <span class="skill-badge"><span class="badge-dot"></span>Hugging Face</span>
+        <span class="skill-badge"><span class="badge-dot"></span>spaCy</span>
+      </div>
+    </div>
+
+    <!-- Data -->
+    <div class="skill-category-card reveal delay-2">
+      <div class="skill-cat-header">
+        <div class="skill-cat-icon"><i class="fa-solid fa-chart-line"></i></div>
+        <div>
+          <div class="skill-cat-title">Data & Visualization</div>
+          <div class="skill-cat-count">6 tools</div>
+        </div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">Pandas / NumPy</span><span class="skill-bar-percent">90%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">Matplotlib / Seaborn</span><span class="skill-bar-percent">85%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">Power BI</span><span class="skill-bar-percent">74%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="74%"></div></div>
+      </div>
+      <div class="skill-badges">
+        <span class="skill-badge"><span class="badge-dot"></span>Pandas</span>
+        <span class="skill-badge"><span class="badge-dot"></span>NumPy</span>
+        <span class="skill-badge"><span class="badge-dot"></span>Matplotlib</span>
+        <span class="skill-badge"><span class="badge-dot"></span>Seaborn</span>
+        <span class="skill-badge"><span class="badge-dot"></span>Power BI</span>
+      </div>
+    </div>
+
+    <!-- Tools -->
+    <div class="skill-category-card reveal delay-3">
+      <div class="skill-cat-header">
+        <div class="skill-cat-icon"><i class="fa-solid fa-toolbox"></i></div>
+        <div>
+          <div class="skill-cat-title">Dev Tools & Platforms</div>
+          <div class="skill-cat-count">7 tools</div>
+        </div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">Streamlit</span><span class="skill-bar-percent">88%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="88%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">GitHub / Git</span><span class="skill-bar-percent">82%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="82%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">Docker</span><span class="skill-bar-percent">65%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="65%"></div></div>
+      </div>
+      <div class="skill-badges">
+        <span class="skill-badge"><span class="badge-dot"></span>Streamlit</span>
+        <span class="skill-badge"><span class="badge-dot"></span>Jupyter</span>
+        <span class="skill-badge"><span class="badge-dot"></span>Docker</span>
+        <span class="skill-badge"><span class="badge-dot"></span>GitHub</span>
+        <span class="skill-badge"><span class="badge-dot"></span>VS Code</span>
+        <span class="skill-badge"><span class="badge-dot"></span>Colab</span>
+      </div>
+    </div>
+
+    <!-- Full Stack / Mobile -->
+    <div class="skill-category-card reveal delay-1">
+      <div class="skill-cat-header">
+        <div class="skill-cat-icon"><i class="fa-solid fa-laptop-code"></i></div>
+        <div>
+          <div class="skill-cat-title">Full Stack & Mobile Development</div>
+          <div class="skill-cat-count">8 technologies</div>
+        </div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">Next.js / React</span><span class="skill-bar-percent">78%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="78%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">Flutter iOS / Android</span><span class="skill-bar-percent">76%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="76%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">REST APIs / Backend</span><span class="skill-bar-percent">82%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="82%"></div></div>
+      </div>
+      <div class="skill-badges">
+        <span class="skill-badge"><span class="badge-dot"></span>Next.js</span>
+        <span class="skill-badge"><span class="badge-dot"></span>React</span>
+        <span class="skill-badge"><span class="badge-dot"></span>TypeScript</span>
+        <span class="skill-badge"><span class="badge-dot"></span>Flutter</span>
+        <span class="skill-badge"><span class="badge-dot"></span>iOS</span>
+        <span class="skill-badge"><span class="badge-dot"></span>Android</span>
+        <span class="skill-badge"><span class="badge-dot"></span>REST APIs</span>
+      </div>
+    </div>
+
+    <!-- IoT / Hardware -->
+    <div class="skill-category-card reveal delay-2">
+      <div class="skill-cat-header">
+        <div class="skill-cat-icon"><i class="fa-solid fa-microchip"></i></div>
+        <div>
+          <div class="skill-cat-title">IoT, Hardware & PCB</div>
+          <div class="skill-cat-count">7 technologies</div>
+        </div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">Arduino Programming</span><span class="skill-bar-percent">84%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="84%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">ESP32 / Arduino Uno R3</span><span class="skill-bar-percent">80%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">IoT & PCB Prototyping</span><span class="skill-bar-percent">76%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="76%"></div></div>
+      </div>
+      <div class="skill-badges">
+        <span class="skill-badge"><span class="badge-dot"></span>Arduino</span>
+        <span class="skill-badge"><span class="badge-dot"></span>Arduino Uno R3</span>
+        <span class="skill-badge"><span class="badge-dot"></span>ESP32</span>
+        <span class="skill-badge"><span class="badge-dot"></span>IoT</span>
+        <span class="skill-badge"><span class="badge-dot"></span>Sensors</span>
+        <span class="skill-badge"><span class="badge-dot"></span>PCB</span>
+        <span class="skill-badge"><span class="badge-dot"></span>Embedded Systems</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROFICIENCY BARS DEEP DIVE -->
+<section class="proficiency-section">
+  <div class="section-header center reveal">
+    <div class="section-label"><i class="fa-solid fa-gauge-high"></i> Proficiency</div>
+    <h2 class="section-title">Skill <span>Proficiency</span></h2>
+    <p class="section-subtitle">Self-assessed proficiency levels based on real project experience and usage.</p>
+  </div>
+
+  <div class="prof-grid">
+    <div class="reveal-left">
+      <div class="prof-column-title"><i class="fa-solid fa-code"></i> Core AI/ML Skills</div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">Python</span><span class="skill-bar-percent">92%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="92%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">LangChain, RAG & AI Agents</span><span class="skill-bar-percent">86%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="86%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">TensorFlow / Keras</span><span class="skill-bar-percent">82%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="82%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">Computer Vision (OpenCV)</span><span class="skill-bar-percent">82%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="82%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">VLM / OCR / Transformers</span><span class="skill-bar-percent">80%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">Scikit-learn</span><span class="skill-bar-percent">88%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="88%"></div></div>
+      </div>
+    </div>
+
+    <div class="reveal-right">
+      <div class="prof-column-title"><i class="fa-solid fa-code"></i> Full Stack, Mobile & Hardware</div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">Next.js / React / TypeScript</span><span class="skill-bar-percent">78%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="78%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">Flutter iOS / Android</span><span class="skill-bar-percent">76%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="76%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">REST APIs / Microservices</span><span class="skill-bar-percent">82%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="82%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">Arduino Programming</span><span class="skill-bar-percent">84%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="84%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">ESP32 / Arduino Uno R3 / IoT</span><span class="skill-bar-percent">80%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">PCB / Hardware Prototyping</span><span class="skill-bar-percent">76%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="76%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-header"><span class="skill-bar-name">Docker</span><span class="skill-bar-percent">65%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="65%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS SHOWCASE -->
+<section class="tools-section">
+  <div class="section-header center reveal">
+    <div class="section-label"><i class="fa-solid fa-toolbox"></i> Tools</div>
+    <h2 class="section-title">Full <span>Tech Toolkit</span></h2>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:16px;" class="reveal">
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-brands fa-python"></i></div><div class="tool-name">Python</div><div class="tool-cat">Language</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-brands fa-js"></i></div><div class="tool-name">JavaScript</div><div class="tool-cat">Language</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-solid fa-code"></i></div><div class="tool-name">TypeScript</div><div class="tool-cat">Language</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-brands fa-react"></i></div><div class="tool-name">Next.js</div><div class="tool-cat">Full Stack</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-brands fa-react"></i></div><div class="tool-name">React</div><div class="tool-cat">Frontend</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-solid fa-mobile-screen-button"></i></div><div class="tool-name">Flutter</div><div class="tool-cat">Mobile Apps</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-brands fa-apple"></i></div><div class="tool-name">iOS</div><div class="tool-cat">Mobile</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-brands fa-android"></i></div><div class="tool-name">Android</div><div class="tool-cat">Mobile</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-solid fa-robot"></i></div><div class="tool-name">AI Agents</div><div class="tool-cat">Agentic AI</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-solid fa-eye"></i></div><div class="tool-name">VLM</div><div class="tool-cat">Vision-Language</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-solid fa-file-lines"></i></div><div class="tool-name">FireRedOCR</div><div class="tool-cat">OCR</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-solid fa-brain"></i></div><div class="tool-name">Qwen3</div><div class="tool-cat">LLM / VLM</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-solid fa-wand-magic-sparkles"></i></div><div class="tool-name">Stable Diffusion</div><div class="tool-cat">Image AI</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-solid fa-microphone-lines"></i></div><div class="tool-name">Voice Cloning</div><div class="tool-cat">Voice AI</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-brands fa-whatsapp"></i></div><div class="tool-name">WhatsApp Bot</div><div class="tool-cat">CRM Automation</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-solid fa-link"></i></div><div class="tool-name">LangChain</div><div class="tool-cat">GenAI</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-solid fa-database"></i></div><div class="tool-name">FAISS</div><div class="tool-cat">Vector DB</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-solid fa-camera"></i></div><div class="tool-name">OpenCV</div><div class="tool-cat">Computer Vision</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-solid fa-diagram-project"></i></div><div class="tool-name">TensorFlow</div><div class="tool-cat">Deep Learning</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-solid fa-bullseye"></i></div><div class="tool-name">Scikit-learn</div><div class="tool-cat">ML</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-solid fa-table"></i></div><div class="tool-name">Pandas</div><div class="tool-cat">Data</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-solid fa-chart-simple"></i></div><div class="tool-name">Power BI</div><div class="tool-cat">Visualization</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-solid fa-water"></i></div><div class="tool-name">Streamlit</div><div class="tool-cat">Deployment</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-solid fa-plug-circle-bolt"></i></div><div class="tool-name">Arduino</div><div class="tool-cat">Embedded</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-solid fa-microchip"></i></div><div class="tool-name">Arduino Uno R3</div><div class="tool-cat">Hardware</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-solid fa-wifi"></i></div><div class="tool-name">ESP32</div><div class="tool-cat">IoT</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-solid fa-network-wired"></i></div><div class="tool-name">IoT</div><div class="tool-cat">Hardware</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-solid fa-memory"></i></div><div class="tool-name">PCB</div><div class="tool-cat">Prototyping</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-brands fa-docker"></i></div><div class="tool-name">Docker</div><div class="tool-cat">DevOps</div></div>
+    <div class="tool-card"><div class="tool-emoji"><i class="fa-brands fa-github"></i></div><div class="tool-name">GitHub</div><div class="tool-cat">Version Control</div></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="logo-badge">PB</div>
+        <div class="logo-text">
+          <div class="logo-name">Prasanna B</div>
+          <div class="logo-role">AI & ML Engineer</div>
+        </div>
+      </div>
+      <p>Building intelligent AI products with Python, LangChain, TensorFlow, and Gemini API.</p>
+      <div class="footer-social">
+        <a href="https://github.com/prasannab4362" target="_blank" class="social-btn"><i class="fa-brands fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/prasanna-balaji18/" target="_blank" class="social-btn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="mailto:prasannamb4362@gmail.com" class="social-btn"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-heading">Quick Links</div>
+      <ul class="footer-links">
+        <li><a href="index.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Home</a></li>
+        <li><a href="about.html"><i class="fa-solid fa-chevron-right fa-xs"></i> About</a></li>
+        <li><a href="skills.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Skills</a></li>
+        <li><a href="projects.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Projects</a></li>
+        <li><a href="experience.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Experience</a></li>
+        <li><a href="contact.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Contact</div>
+      <ul class="footer-links">
+        <li><a href="mailto:prasannamb4362@gmail.com"><i class="fa-solid fa-envelope fa-xs"></i> prasannamb4362@gmail.com</a></li>
+        <li><a href="tel:+918610318934"><i class="fa-solid fa-phone fa-xs"></i> +91 8610318934</a></li>
+        <li><a href="#"><i class="fa-solid fa-location-dot fa-xs"></i> Coimbatore, Tamil Nadu</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 <span>Prasanna B</span>. Crafted with <span>heart</span> & Python.</p>
+    <p>AI & ML Engineer | Coimbatore, India</p>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+<script>
+  // Animate circular charts on scroll
+  document.querySelectorAll('.circ-fill[data-pct]').forEach(el => {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const pct = parseFloat(e.target.dataset.pct);
+          e.target.style.strokeDashoffset = 251 - (251 * pct / 100);
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    obs.observe(el);
+  });
+</script>
+</body>
+</html>
+
+

@@ -1,0 +1,598 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Experience | Prasanna B</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* Experience Layout */
+    .exp-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .exp-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .exp-card:hover {
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+    }
+
+    .exp-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--gradient);
+    }
+
+    .exp-company-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .exp-company-logo {
+      width: 60px; height: 60px;
+      background: var(--gradient);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--white);
+      flex-shrink: 0;
+      box-shadow: 0 6px 16px rgba(16,185,129,0.3);
+    }
+
+    .exp-role {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+
+    .exp-company {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+      margin-bottom: 6px;
+    }
+
+    .exp-date-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .exp-date {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+      background: var(--primary-pale);
+      padding: 5px 12px;
+      border-radius: 100px;
+    }
+
+    .exp-responsibilities {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .exp-responsibilities li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      line-height: 1.65;
+    }
+
+    .exp-responsibilities li::before {
+      content: '';
+      display: block;
+      width: 8px; height: 8px;
+      background: var(--gradient);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 7px;
+    }
+
+    .exp-tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* Certifications */
+    .certs-section { background: var(--light-bg); }
+
+    .cert-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 22px;
+      transition: var(--transition);
+    }
+
+    .cert-card:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow);
+      transform: translateY(-3px);
+    }
+
+    .cert-icon {
+      width: 56px; height: 56px;
+      background: var(--gradient);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+
+    .cert-name {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+
+    .cert-issuer {
+      font-size: 0.88rem;
+      color: var(--primary-dark);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .cert-date {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .cert-badge {
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .cert-badge-icon {
+      width: 52px; height: 52px;
+      background: var(--primary-pale);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: var(--primary-dark);
+      margin: 0 auto 6px;
+    }
+
+    .cert-badge-label {
+      font-size: 0.7rem;
+      color: var(--text-light);
+      font-weight: 600;
+    }
+
+    /* Skills at a glance */
+    .skills-glance {
+      background: var(--white);
+    }
+
+    .competency-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .competency-card {
+      background: var(--light-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .competency-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .comp-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+      color: var(--primary-dark);
+    }
+
+    .comp-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+
+    .comp-desc {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 900px) {
+      .exp-layout { grid-template-columns: 1fr; }
+      .cert-card { grid-template-columns: auto 1fr; }
+      .cert-badge { display: none; }
+      .competency-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .competency-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="scroll-progress"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html" class="navbar-logo">
+    <div class="logo-badge">PB</div>
+    <div class="logo-text">
+      <div class="logo-name">Prasanna B</div>
+      <div class="logo-role">AI & ML Engineer</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="skills.html">Skills</a>
+    <a href="projects.html">Projects</a>
+    <a href="experience.html">Experience</a>
+    <a href="contact.html" class="nav-cta">Contact</a>
+  </div>
+  <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu">
+  <button class="mobile-close"><i class="fa-solid fa-xmark"></i></button>
+  <a href="index.html">Home</a><a href="about.html">About</a>
+  <a href="skills.html">Skills</a><a href="projects.html">Projects</a>
+  <a href="experience.html">Experience</a><a href="contact.html">Contact</a>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-content">
+    <div class="page-badge"><i class="fa-solid fa-briefcase"></i> Experience</div>
+    <h1>Professional Journey &<br /><span>Achievements</span></h1>
+    <p>My work experience, certifications, and key competencies earned over the years.</p>
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fa-solid fa-chevron-right fa-xs"></i>
+      <span>Experience</span>
+    </div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<section style="background:var(--white);">
+  <div class="section-header reveal">
+    <div class="section-label"><i class="fa-solid fa-briefcase"></i> Work History</div>
+    <h2 class="section-title">Professional <span>Experience</span></h2>
+    <p class="section-subtitle">Two hands-on roles across Python development, full-stack apps, mobile, IoT hardware, robotics engineering, AI/ML training, and product workflows.</p>
+  </div>
+
+  <div class="exp-layout">
+    <!-- Creative Bees -->
+    <div class="exp-card reveal-left">
+      <div class="exp-company-row">
+        <div class="exp-company-logo">CB</div>
+        <div>
+          <div class="exp-role">Python Developer</div>
+          <div class="exp-company">Creative Bees</div>
+          <div style="font-size:0.82rem;color:var(--text-light);">Coimbatore, Tamil Nadu, India | On-site</div>
+        </div>
+      </div>
+
+      <div class="exp-date-row">
+        <span class="exp-date"><i class="fa-regular fa-calendar"></i> Aug 2025 - Present</span>
+        <span class="tag">Full-time</span>
+        <span class="tag">9 mos</span>
+        <span class="tag" style="background:rgba(16,185,129,0.1);color:var(--primary-dark);">Python Applications</span>
+      </div>
+
+      <ul class="exp-responsibilities">
+        <li>Designing, developing, testing, and deploying scalable Python-based applications for business and AI product workflows.</li>
+        <li>Building and maintaining RESTful APIs, microservices, and backend integrations that support reliable product features.</li>
+        <li>Working on AI-enabled automation ideas including VLM/OCR extraction, CRM-ready workflows, and intelligent assistant features.</li>
+        <li>Collaborating across planning, implementation, debugging, and deployment so application features move cleanly from prototype to use.</li>
+      </ul>
+
+      <div class="exp-tech-stack">
+        <span class="tag">Python</span>
+        <span class="tag">REST APIs</span>
+        <span class="tag">Microservices</span>
+        <span class="tag">Backend Development</span>
+        <span class="tag">Next.js</span>
+        <span class="tag">Flutter</span>
+        <span class="tag">Testing</span>
+        <span class="tag">Deployment</span>
+        <span class="tag">Agentic AI</span>
+        <span class="tag">VLM</span>
+      </div>
+    </div>
+
+    <!-- Robomatic -->
+    <div class="exp-card reveal-right">
+      <div class="exp-company-row">
+        <div class="exp-company-logo">RM</div>
+        <div>
+          <div class="exp-role">Robotics Engineer</div>
+          <div class="exp-company">Robomatic</div>
+          <div style="font-size:0.82rem;color:var(--text-light);">Coimbatore, Tamil Nadu, India | On-site</div>
+        </div>
+      </div>
+
+      <div class="exp-date-row">
+        <span class="exp-date"><i class="fa-regular fa-calendar"></i> Jun 2023 - Aug 2025</span>
+        <span class="tag">Full-time</span>
+        <span class="tag" style="background:rgba(16,185,129,0.1);color:var(--primary-dark);">2 yrs 3 mos</span>
+      </div>
+
+      <ul class="exp-responsibilities">
+        <li>Trained 150+ students in software testing, debugging, quality assurance, Python, R, and software development fundamentals.</li>
+        <li>Conducted hands-on workshops in Python, R, NLP, TensorFlow, Arduino programming, IoT, and applied AI/ML concepts for student learning programs.</li>
+        <li>Supported robotics, embedded systems, and AI learning sessions by translating technical topics into practical demos and classroom-ready workflows.</li>
+        <li>Guided learners through project implementation, model experimentation, code debugging, and presentation of working prototypes.</li>
+      </ul>
+
+      <div class="exp-tech-stack">
+        <span class="tag">Python</span>
+        <span class="tag">R</span>
+        <span class="tag">NLP</span>
+        <span class="tag">TensorFlow</span>
+        <span class="tag">Arduino</span>
+        <span class="tag">ESP32</span>
+        <span class="tag">Arduino Uno R3</span>
+        <span class="tag">IoT</span>
+        <span class="tag">PCB</span>
+        <span class="tag">Software Testing</span>
+        <span class="tag">Debugging</span>
+        <span class="tag">Quality Assurance</span>
+        <span class="tag">Training</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Timeline / Achievements Side -->
+  <div style="margin-top:70px;" class="reveal">
+    <div class="section-label" style="margin-bottom:20px;"><i class="fa-solid fa-timeline"></i> Career Timeline</div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Aug 2025 - Present</div>
+        <div class="timeline-title">Python Developer</div>
+        <div class="timeline-company">Creative Bees | Full-time | Coimbatore</div>
+        <p class="timeline-desc">Designing, developing, testing, and deploying scalable Python applications, RESTful APIs, microservices, and AI-enabled product workflows.</p>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Jun 2023 - Aug 2025</div>
+        <div class="timeline-title">Robotics Engineer</div>
+        <div class="timeline-company">Robomatic | Full-time | Coimbatore</div>
+        <p class="timeline-desc">Trained 150+ students and conducted workshops across Python, R, software development, NLP, TensorFlow, Arduino, IoT, ESP32, debugging, testing, and quality assurance.</p>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date"><i class="fa-regular fa-calendar"></i> 2019 - 2023</div>
+        <div class="timeline-title">B.E. Computer Science Engineering</div>
+        <div class="timeline-company">Sathyabama Institute | Chennai</div>
+        <p class="timeline-desc">Graduated with CGPA 8.12. Focused on ML, data science, and AI applications. Built multiple projects in Python and R.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="certs-section">
+  <div class="section-header center reveal">
+    <div class="section-label"><i class="fa-solid fa-certificate"></i> Certifications</div>
+    <h2 class="section-title">Professional <span>Certifications</span></h2>
+    <p class="section-subtitle">Recognized credentials from industry leaders and government institutions.</p>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:20px;max-width:900px;margin:0 auto;">
+    <!-- Cert 1 -->
+    <div class="cert-card reveal">
+      <div class="cert-icon"><i class="fa-brands fa-google"></i></div>
+      <div>
+        <div class="cert-name">Google Data Analytics Professional Certificate</div>
+        <div class="cert-issuer">Google | Coursera</div>
+        <div class="cert-date"><i class="fa-regular fa-calendar"></i> April 2023</div>
+        <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:7px;">
+          <span class="tag">Data Analysis</span>
+          <span class="tag">SQL</span>
+          <span class="tag">R</span>
+          <span class="tag">Tableau</span>
+          <span class="tag">Spreadsheets</span>
+        </div>
+      </div>
+      <div class="cert-badge">
+        <div class="cert-badge-icon"><i class="fa-solid fa-award"></i></div>
+        <div class="cert-badge-label">Verified</div>
+      </div>
+    </div>
+
+    <!-- Cert 2 -->
+    <div class="cert-card reveal delay-1">
+      <div class="cert-icon" style="font-size:1.1rem;"><i class="fa-solid fa-building-columns"></i></div>
+      <div>
+        <div class="cert-name">Data Analysis using Python</div>
+        <div class="cert-issuer">NIELIT - National Institute of Electronics & Information Technology</div>
+        <div class="cert-date"><i class="fa-regular fa-calendar"></i> June - July 2024</div>
+        <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:7px;">
+          <span class="tag">Python</span>
+          <span class="tag">NumPy</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">Matplotlib</span>
+          <span class="tag">Data Wrangling</span>
+        </div>
+      </div>
+      <div class="cert-badge">
+        <div class="cert-badge-icon"><i class="fa-solid fa-award"></i></div>
+        <div class="cert-badge-label">Govt. Certified</div>
+      </div>
+    </div>
+
+    <!-- Cert 3 -->
+    <div class="cert-card reveal delay-2">
+      <div class="cert-icon"><i class="fa-solid fa-chart-bar"></i></div>
+      <div>
+        <div class="cert-name">Data Analytics using R</div>
+        <div class="cert-issuer">Vani Analytics</div>
+        <div class="cert-date"><i class="fa-regular fa-calendar"></i> October 2023</div>
+        <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:7px;">
+          <span class="tag">R Programming</span>
+          <span class="tag">dplyr</span>
+          <span class="tag">ggplot2</span>
+          <span class="tag">Statistical Analysis</span>
+        </div>
+      </div>
+      <div class="cert-badge">
+        <div class="cert-badge-icon"><i class="fa-solid fa-award"></i></div>
+        <div class="cert-badge-label">Certified</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPETENCIES -->
+<section class="skills-glance">
+  <div class="section-header center reveal">
+    <div class="section-label"><i class="fa-solid fa-star"></i> Core Strengths</div>
+    <h2 class="section-title">Key <span>Competencies</span></h2>
+    <p class="section-subtitle">The core strengths I bring to every AI project and engineering role.</p>
+  </div>
+
+  <div class="competency-grid">
+    <div class="competency-card reveal delay-1">
+      <div class="comp-icon"><i class="fa-solid fa-robot"></i></div>
+      <div class="comp-title">RAG & LLM Systems</div>
+      <div class="comp-desc">Building domain-specific chatbots and Q&A engines using LangChain, FAISS, and Gemini API with source-grounded retrieval.</div>
+    </div>
+    <div class="competency-card reveal delay-2">
+      <div class="comp-icon"><i class="fa-solid fa-eye"></i></div>
+      <div class="comp-title">Computer Vision</div>
+      <div class="comp-desc">Real-time image recognition, face detection, liveness detection, and CNN-based classification pipelines.</div>
+    </div>
+    <div class="competency-card reveal delay-3">
+      <div class="comp-icon"><i class="fa-solid fa-chart-simple"></i></div>
+      <div class="comp-title">Data Analysis & EDA</div>
+      <div class="comp-desc">Deep exploratory data analysis, feature engineering, and Power BI dashboard creation for data-driven decision making.</div>
+    </div>
+    <div class="competency-card reveal delay-1">
+      <div class="comp-icon"><i class="fa-solid fa-brain"></i></div>
+      <div class="comp-title">Machine Learning</div>
+      <div class="comp-desc">End-to-end ML pipelines - preprocessing, model selection, hyperparameter tuning, and evaluation using Scikit-learn.</div>
+    </div>
+    <div class="competency-card reveal delay-2">
+      <div class="comp-icon"><i class="fa-solid fa-water"></i></div>
+      <div class="comp-title">AI App Deployment</div>
+      <div class="comp-desc">Deploying production-ready AI applications using Streamlit with real-time interaction, data viz, and user workflows.</div>
+    </div>
+    <div class="competency-card reveal delay-3">
+      <div class="comp-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+      <div class="comp-title">Mentoring & Training</div>
+      <div class="comp-desc">Delivering Python, ML, and AI workshops to students and junior engineers. Strong communication and teaching skills.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="logo-badge">PB</div>
+        <div class="logo-text">
+          <div class="logo-name">Prasanna B</div>
+          <div class="logo-role">AI & ML Engineer</div>
+        </div>
+      </div>
+      <p>Building intelligent AI products with Python, LangChain, TensorFlow, and Gemini API.</p>
+      <div class="footer-social">
+        <a href="https://github.com/prasannab4362" target="_blank" class="social-btn"><i class="fa-brands fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/prasanna-balaji18/" target="_blank" class="social-btn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="mailto:prasannamb4362@gmail.com" class="social-btn"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-heading">Quick Links</div>
+      <ul class="footer-links">
+        <li><a href="index.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Home</a></li>
+        <li><a href="about.html"><i class="fa-solid fa-chevron-right fa-xs"></i> About</a></li>
+        <li><a href="skills.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Skills</a></li>
+        <li><a href="projects.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Projects</a></li>
+        <li><a href="experience.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Experience</a></li>
+        <li><a href="contact.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Contact</div>
+      <ul class="footer-links">
+        <li><a href="mailto:prasannamb4362@gmail.com"><i class="fa-solid fa-envelope fa-xs"></i> prasannamb4362@gmail.com</a></li>
+        <li><a href="tel:+918610318934"><i class="fa-solid fa-phone fa-xs"></i> +91 8610318934</a></li>
+        <li><a href="#"><i class="fa-solid fa-location-dot fa-xs"></i> Coimbatore, Tamil Nadu</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 <span>Prasanna B</span>. Crafted with <span>heart</span> & Python.</p>
+    <p>AI & ML Engineer | Coimbatore, India</p>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
+
+

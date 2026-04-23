@@ -1,132 +1,990 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prasanna.B - Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="C:\Users\Prasanna\Intern\portfolio\Portfolio-up\image.png" type="image/x-icon">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Prasanna B - Python Developer | AI & ML Engineer | Building Intelligent AI Products" />
+  <title>Prasanna B | AI & ML Engineer</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* â”€â”€ Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      background: var(--gradient-hero);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    #neural-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      padding: 120px 5% 80px;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      align-items: center;
+      gap: 60px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16,185,129,0.15);
+      border: 1px solid rgba(16,185,129,0.35);
+      color: var(--accent);
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 22px;
+    }
+
+    .hero-badge .dot {
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse-dot 1.5s ease infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    .hero-name {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.05;
+      letter-spacing: -1.5px;
+      margin-bottom: 10px;
+    }
+
+    .hero-name span {
+      background: linear-gradient(90deg, #34d399, #10b981, #6ee7b7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-typewriter {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      min-height: 2.2rem;
+      margin-bottom: 26px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-typewriter .cursor {
+      display: inline-block;
+      width: 3px; height: 1.4em;
+      background: var(--accent);
+      animation: blink 0.9s step-end infinite;
+      border-radius: 2px;
+      vertical-align: text-top;
+    }
+
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+    .hero-description {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.65);
+      max-width: 530px;
+      line-height: 1.85;
+      margin-bottom: 38px;
+    }
+
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    .hero-social {
+      display: flex;
+      gap: 12px;
+      margin-top: 46px;
+      align-items: center;
+    }
+
+    .hero-social span {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.4);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-social a {
+      width: 40px; height: 40px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.7);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .hero-social a:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: var(--white);
+      transform: translateY(-3px);
+    }
+
+    /* Hero Visual / Avatar Panel */
+    .hero-visual {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .avatar-card {
+      width: 340px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-xl);
+      padding: 36px 30px 30px;
+      text-align: center;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .avatar-ring {
+      width: 130px; height: 130px;
+      border-radius: 50%;
+      background: var(--gradient);
+      padding: 4px;
+      margin: 0 auto 20px;
+      box-shadow: 0 0 40px rgba(16,185,129,0.4);
+    }
+
+    .avatar-inner {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      background: var(--forest);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: -2px;
+    }
+
+    .avatar-name {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .avatar-role {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 20px;
+    }
+
+    .avatar-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .float-cards {
+      display: flex;
+      gap: 14px;
+      width: 340px;
+    }
+
+    .float-card {
+      flex: 1;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      padding: 16px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .float-card-icon {
+      font-size: 1.5rem;
+      margin-bottom: 6px;
+      color: var(--accent);
+    }
+
+    .float-card-num {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .float-card-label {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.5);
+      margin-top: 3px;
+    }
+
+    /* â”€â”€ Stats Bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    .stats-bar {
+      background: var(--white);
+      box-shadow: 0 -4px 40px rgba(16,185,129,0.12), var(--shadow);
+      padding: 44px 5%;
+    }
+
+    .stats-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      text-align: center;
+    }
+
+    .stats-divider {
+      width: 1px;
+      background: var(--border);
+      align-self: stretch;
+    }
+
+    /* â”€â”€ About Preview â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    .about-preview {
+      background: var(--light-bg);
+      display: grid;
+      grid-template-columns: 1fr 1.05fr;
+      align-items: center;
+      gap: 80px;
+    }
+
+    .about-img-wrap { position: relative; }
+
+    .about-img-bg {
+      width: 100%; aspect-ratio: 3/3.5;
+      background: var(--gradient);
+      border-radius: var(--radius-xl);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-img-inner {
+      position: absolute;
+      inset: 3px;
+      background: var(--forest);
+      border-radius: calc(var(--radius-xl) - 3px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+      font-size: 6rem;
+      font-weight: 900;
+      color: var(--primary);
+      opacity: 0.3;
+      letter-spacing: -5px;
+    }
+
+    .about-img-badge {
+      position: absolute;
+      bottom: -16px; right: -16px;
+      background: var(--white);
+      border-radius: 16px;
+      padding: 14px 20px;
+      box-shadow: var(--shadow);
+      border: 2px solid var(--primary-pale);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .about-img-badge .badge-num {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1;
+    }
+
+    .about-img-badge .badge-text {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      font-weight: 500;
+    }
+
+    .about-highlights {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .highlight-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .highlight-icon {
+      width: 42px; height: 42px;
+      background: var(--primary-pale);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-dark);
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .highlight-text h4 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 2px;
+    }
+
+    .highlight-text p { font-size: 0.85rem; color: var(--text-light); }
+
+    /* â”€â”€ Featured Projects â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    .featured-projects { background: var(--white); }
+
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+      position: relative;
+    }
+
+    .project-card:hover {
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .project-thumb {
+      height: 190px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-thumb-bg {
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4.5rem;
+    }
+
+    .project-thumb-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+      opacity: 0;
+      transition: var(--transition);
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 16px;
+    }
+
+    .project-card:hover .project-thumb-overlay { opacity: 1; }
+
+    .project-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+
+    .project-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .project-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+      line-height: 1.35;
+    }
+
+    .project-desc {
+      font-size: 0.87rem;
+      color: var(--text-light);
+      line-height: 1.7;
+      flex: 1;
+      margin-bottom: 18px;
+    }
+
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 18px;
+    }
+
+    .project-links { display: flex; gap: 10px; }
+
+    /* â”€â”€ Skills Preview â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    .skills-preview { background: var(--light-bg); }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 16px;
+    }
+
+    .tech-item {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 12px;
+      text-align: center;
+      transition: var(--transition);
+      cursor: default;
+    }
+
+    .tech-item:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-sm);
+      transform: translateY(-4px);
+    }
+
+    .tech-icon { font-size: 1.8rem; margin-bottom: 8px; color: var(--primary-dark); }
+    .tech-name { font-size: 0.78rem; font-weight: 600; color: var(--text-mid); }
+
+    /* â”€â”€ CTA Banner â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    .cta-banner {
+      background: var(--gradient-hero);
+      padding: 90px 5%;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2310b981' fill-opacity='0.07'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .cta-inner { position: relative; }
+
+    .cta-banner h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .cta-banner h2 span { color: var(--accent); }
+
+    .cta-banner p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.65);
+      max-width: 520px;
+      margin: 0 auto 36px;
+    }
+
+    /* Scroll Down */
+    .scroll-down {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.72rem;
+      letter-spacing: 1.5px;
+      font-weight: 500;
+      text-transform: uppercase;
+      animation: bounce 2s ease infinite;
+    }
+
+    .scroll-down i { font-size: 1.1rem; }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-content { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .about-preview { grid-template-columns: 1fr; }
+      .about-img-wrap { max-width: 360px; margin: 0 auto; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 640px) {
+      .stats-inner { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div id="branding">
-                <h1>Prasanna B</h1>
-            </div>
-            <nav>
-                <ul>
-                    <li class="current"><a href="#home" data-scroll>Home</a></li>
-                    <li><a href="#about" data-scroll>About</a></li>
-                    <li><a href="#skills" data-scroll>Skills</a></li>
-                    <li><a href="#projects" data-scroll>Projects</a></li>
-                    <li><a href="#experience" data-scroll>Experience</a></li>
-                    <li><a href="#contact" data-scroll>Contact</a></li>
-                </ul>
-            </nav>
+
+<div id="scroll-progress"></div>
+
+<!-- â•â•â•â•â•â•â•â•â•â• NAVBAR â•â•â•â•â•â•â•â•â•â• -->
+<nav class="navbar">
+  <a href="index.html" class="navbar-logo">
+    <div class="logo-badge">PB</div>
+    <div class="logo-text">
+      <div class="logo-name">Prasanna B</div>
+      <div class="logo-role">AI & ML Engineer</div>
+    </div>
+  </a>
+
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="skills.html">Skills</a>
+    <a href="projects.html">Projects</a>
+    <a href="experience.html">Experience</a>
+    <a href="contact.html" class="nav-cta">Contact</a>
+  </div>
+
+  <button class="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu">
+  <button class="mobile-close"><i class="fa-solid fa-xmark"></i></button>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="skills.html">Skills</a>
+  <a href="projects.html">Projects</a>
+  <a href="experience.html">Experience</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- â•â•â•â•â•â•â•â•â•â• HERO â•â•â•â•â•â•â•â•â•â• -->
+<section class="hero">
+  <canvas id="neural-canvas"></canvas>
+
+  <div class="hero-content">
+    <div>
+      <div class="hero-badge"><span class="dot"></span> Available for Work</div>
+
+      <h1 class="hero-name">
+        Hi, I'm<br /><span>Prasanna B</span>
+      </h1>
+
+      <div class="hero-typewriter">
+        <span id="typewriter"
+          data-words='["Python Developer","AI & ML Engineer","VLM Product Builder","Agentic AI Builder","GenAI Engineer"]'
+        ></span>
+        <span class="cursor"></span>
+      </div>
+
+      <p class="hero-description">
+        Python Developer at Creative Bees with prior Robotics Engineer experience at Robomatic, building full-stack,
+        mobile, IoT, VLM/OCR, Agentic AI, and production-ready Python workflows.
+      </p>
+
+      <div class="hero-actions">
+        <a href="projects.html" class="btn btn-primary btn-lg">
+          <i class="fa-solid fa-rocket"></i> Explore My Work
+        </a>
+        <a href="contact.html" class="btn btn-outline btn-lg" style="color:rgba(255,255,255,0.85);border-color:rgba(255,255,255,0.35);">
+          <i class="fa-solid fa-paper-plane"></i> Get in Touch
+        </a>
+      </div>
+
+      <div class="hero-social">
+        <span>Find me on</span>
+        <a href="https://github.com/prasannab4362" target="_blank" aria-label="GitHub">
+          <i class="fa-brands fa-github"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/prasanna-balaji18/" target="_blank" aria-label="LinkedIn">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+        <a href="mailto:prasannamb4362@gmail.com" aria-label="Email">
+          <i class="fa-solid fa-envelope"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="avatar-card">
+        <div class="avatar-ring">
+          <div class="avatar-inner">PB</div>
         </div>
-    </header>
-
-    <section id="home" class="showcase">
-        <div class="container">
-            <h1>Welcome to My Portfolio</h1>
-            <p>Crafting Innovative Solutions with Python, Django, and Machine Learning</p>
+        <div class="avatar-name">Prasanna B</div>
+        <div class="avatar-role">Python Developer at Creative Bees</div>
+        <div class="avatar-tags">
+          <span class="tag tag-dark">Python</span>
+          <span class="tag tag-dark">Next.js</span>
+          <span class="tag tag-dark">Flutter</span>
+          <span class="tag tag-dark">IoT</span>
+          <span class="tag tag-dark">Agentic AI</span>
+          <span class="tag tag-dark">VLM</span>
         </div>
-    </section>
+      </div>
 
-    <section id="about" class="container">
-        <h2>About Me</h2>
-        <p>I began my journey as a Robotics Engineer (Trainer) driven by a passion for teaching students and guiding them through projects. With a solid foundation in Python and Django, I've developed robust applications and implemented machine learning models that yield impactful results. My commitment to continuous learning has led me to explore IoT, robotics, and deep learning, keeping me at the forefront of technological advancements. I excel in collaborative environments and take pleasure in sharing my knowledge through workshops and community events.</p>
-    </section>
+      <div class="float-cards">
+        <div class="float-card">
+          <div class="float-card-icon"><i class="fa-solid fa-diagram-project"></i></div>
+          <div class="float-card-num">57</div>
+          <div class="float-card-label">GitHub Repos</div>
+        </div>
+        <div class="float-card">
+          <div class="float-card-icon"><i class="fa-solid fa-calendar-check"></i></div>
+          <div class="float-card-num">2+</div>
+          <div class="float-card-label">Years Exp.</div>
+        </div>
+        <div class="float-card">
+          <div class="float-card-icon"><i class="fa-solid fa-certificate"></i></div>
+          <div class="float-card-num">3</div>
+          <div class="float-card-label">Certs</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <section id="skills" class="container">
-        <h2>Skills</h2>
-        <h3>Programming Languages</h3>
-        <ul>
-            <li>Python </li>
-            <li>R </li>
-        </ul>
-        <h3>Web Development</h3>
-        <ul>
-            <li>HTML, CSS, JavaScript, Django</li>
-        </ul>
-        <h3>Databases</h3>
-        <ul>
-            <li>PostgreSQL</li>
-        </ul>
-        <h3>Machine Learning</h3>
-        <ul>
-            <li>Naive Bayes, Regression Models, Decision Trees, Tensorflow, Keras</li>
-        </ul>
-        <h3>Tools</h3>
-        <ul>
-            <li>Visual Studio, PyCharm, Jupyter Notebook, Git/GitHub, Arduino IDE, MS Office, R Studio</li>
-        </ul>
-    </section>
+  <div class="scroll-down">
+    <span>Scroll</span>
+    <i class="fa-solid fa-chevron-down"></i>
+  </div>
+</section>
 
-    <section id="projects" class="container">
-        <h2>Projects</h2>
-        <h3>Main Project: Comprehensive Fundamental Analysis of Stocks in Secondary Market</h3>
-        <p>Summary: Developed using Django and machine learning to provide benchmarks for informed buying/selling decisions.</p>
-        <ul>
-            <li>Implemented data extraction using screener.in.</li>
-            <li>Integrated web scraping for efficient data retrieval.</li>
-            <li>Results: Improved decision-making process for investors.</li>
-        </ul>
-        <h3>Mini Projects:</h3>
-        <h4>Analytical Model for Job Placement Using Data Science Algorithm</h4>
-        <ul>
-            <li>Utilized R and R Studio applications.</li>
-            <li>Applied naive Bayes algorithm to predict job placements.</li>
-            <li>Results: Achieved an accuracy rate of 85%.</li>
-        </ul>
-        <h4>Rental Bikes Based on Machine Learning</h4>
-        <ul>
-            <li>Used machine learning regression model and decision tree method.</li>
-            <li>Predicted bike usage to optimize resources for bike-sharing firms.</li>
-            <li>Results: Increased resource allocation efficiency by 20%.</li>
-        </ul>
-    </section>
+<!-- â•â•â•â•â•â•â•â•â•â• STATS BAR â•â•â•â•â•â•â•â•â•â• -->
+<section class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item reveal">
+      <div class="stat-number" data-count="57">0</div>
+      <div class="stat-label">Public GitHub Repositories</div>
+    </div>
+    <div class="stat-item reveal delay-1">
+      <div class="stat-number" data-count="2" data-suffix="+ Yrs">0</div>
+      <div class="stat-label">Industry Experience</div>
+    </div>
+    <div class="stat-item reveal delay-2">
+      <div class="stat-number" data-count="20" data-suffix="+">0+</div>
+      <div class="stat-label">AI Tools & Frameworks</div>
+    </div>
+    <div class="stat-item reveal delay-3">
+      <div class="stat-number" data-count="3">0</div>
+      <div class="stat-label">Certifications Earned</div>
+    </div>
+  </div>
+</section>
 
-    <section id="experience" class="container">
-        <h2>Work Experience</h2>
-        <h3>Robotics Trainer at Robomatiic (A Division of CADD Technologies)</h3>
-        <p>June 2023 - Present (Work Experience of 1 year)</p>
-        <ul>
-            <li>Guided over 10 students in AI and ML projects using Django and Flask frameworks.</li>
-            <li>Developed and implemented IoT projects in a collaborative office environment.</li>
-            <li>Taught Python programming from scratch to advanced levels, ensuring comprehensive understanding.</li>
-            <li>Worked on various projects using Django and Flask frameworks.</li>
-            <li>Developed web applications and ensured seamless integration with backend systems.</li>
-        </ul>
-    </section>
+<!-- â•â•â•â•â•â•â•â•â•â• ABOUT PREVIEW â•â•â•â•â•â•â•â•â•â• -->
+<section class="about-preview">
+  <div class="about-img-wrap reveal-left">
+    <div class="about-img-bg">
+      <div class="about-img-inner">AI</div>
+    </div>
+    <div class="about-img-badge">
+      <div class="badge-num">8.12</div>
+      <div class="badge-text">CGPA - B.E. CSE</div>
+    </div>
+  </div>
 
-    <section id="contact" class="container">
-        <h2>Contact</h2>
-        <p><strong>Email:</strong> <a href="mailto:prasannamb4362@gmail.com">prasannamb4362@gmail.com</a></p>
-        <p><strong>LinkedIn:</strong> <a href="http://www.linkedin.com/in/prasanna-balaji1972">Prasanna Balaji</a></p>
-        <p><strong>GitHub:</strong> <a href="https://github.com/Prasannnnn">Prasannnnn</a></p>
-    </section>
+  <div class="reveal-right">
+    <div class="section-label"><i class="fa-solid fa-user-astronaut"></i> About Me</div>
+    <h2 class="section-title">Building AI That<br /><span>Makes a Difference</span></h2>
+    <p style="color:var(--text-mid);line-height:1.85;margin-bottom:28px;">
+      I'm Prasanna B, a Python Developer at Creative Bees and former Robotics Engineer at Robomatic, building
+      end-to-end intelligent systems. From Next.js dashboards and Flutter mobile apps to IoT prototypes, VLM card
+      readers, WhatsApp CRM bots, and image AI, I bridge the gap between software, hardware, and practical AI workflows.
+    </p>
 
-    <footer>
-        <p>Prasanna.B &copy; 2024</p>
-    </footer>
+    <div class="about-highlights">
+      <div class="highlight-item">
+        <div class="highlight-icon"><i class="fa-solid fa-brain"></i></div>
+        <div class="highlight-text">
+          <h4>Agentic & Generative AI</h4>
+          <p>AI agents, RAG pipelines, LangChain, FAISS, and automation workflows for real business use cases.</p>
+        </div>
+      </div>
+      <div class="highlight-item">
+        <div class="highlight-icon"><i class="fa-solid fa-eye"></i></div>
+        <div class="highlight-text">
+          <h4>VLM, OCR & Computer Vision</h4>
+          <p>OpenCV, Qwen3, FireRedOCR, VLM pipelines, detection models, and mobile document intelligence.</p>
+        </div>
+      </div>
+      <div class="highlight-item">
+        <div class="highlight-icon"><i class="fa-solid fa-chart-line"></i></div>
+        <div class="highlight-text">
+          <h4>Image, Voice & Product AI</h4>
+          <p>Stable Diffusion image editing, voice cloning workflows, ML pipelines, and deployable Python apps.</p>
+        </div>
+      </div>
+      <div class="highlight-item">
+        <div class="highlight-icon"><i class="fa-solid fa-laptop-code"></i></div>
+        <div class="highlight-text">
+          <h4>Full Stack, Mobile & IoT</h4>
+          <p>Next.js, Flutter iOS/Android, Arduino programming, ESP32, Arduino Uno R3, IoT, PCB and hardware prototypes.</p>
+        </div>
+      </div>
+    </div>
 
-    <script>
-        // Smooth scrolling with offset for fixed header
-        document.querySelectorAll('a[data-scroll]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
+    <div style="margin-top:36px;">
+      <a href="about.html" class="btn btn-primary">
+        <i class="fa-solid fa-arrow-right"></i> Learn More About Me
+      </a>
+    </div>
+  </div>
+</section>
 
-                const targetId = this.getAttribute('href').substring(1);
-                const targetElement = document.getElementById(targetId);
-                const offsetPosition = targetElement.offsetTop - document.querySelector('header').offsetHeight;
+<!-- â•â•â•â•â•â•â•â•â•â• FEATURED PROJECTS â•â•â•â•â•â•â•â•â•â• -->
+<section class="featured-projects">
+  <div class="section-header reveal">
+    <div class="section-label"><i class="fa-solid fa-code-branch"></i> Projects</div>
+    <h2 class="section-title">Featured <span>AI Projects</span></h2>
+    <p class="section-subtitle">Handpicked projects showcasing real-world AI product work across agents, VLM/OCR, image AI, and automation.</p>
+  </div>
 
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
+  <div class="grid-3">
+    <!-- Project 1 -->
+    <div class="project-card reveal delay-1" data-category="agentic-ai genai">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#064e3b,#10b981);">
+        <div class="project-thumb-bg"><i class="fa-solid fa-robot" style="color:rgba(255,255,255,0.92);"></i></div>
+        <div class="project-thumb-overlay">
+          <a href="projects.html" class="btn btn-white btn-sm">View Details</a>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-meta">
+          <span class="status-badge in-progress">Active Build</span>
+          <span class="tag">Agentic AI</span>
+        </div>
+        <h3 class="project-title">Nami Agent - Calendar Bot & Development Agent</h3>
+        <p class="project-desc">Python-based agentic assistant for calendar workflows, development support, and user-facing automation experiments.</p>
+        <div class="project-stack">
+          <span class="tag">Python</span>
+          <span class="tag">AI Agents</span>
+          <span class="tag">Automation</span>
+          <span class="tag">Workflow</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/prasannab4362/Nami_agent" target="_blank" class="btn btn-ghost btn-sm">
+            <i class="fa-brands fa-github"></i> Code
+          </a>
+          <a href="projects.html" class="btn btn-outline btn-sm">
+            <i class="fa-solid fa-arrow-right"></i> Details
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 2 -->
+    <div class="project-card reveal delay-2" data-category="vlm genai computer-vision">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#1e3a2f,#059669);">
+        <div class="project-thumb-bg"><i class="fa-solid fa-id-card-clip" style="color:rgba(255,255,255,0.92);"></i></div>
+        <div class="project-thumb-overlay">
+          <a href="projects.html" class="btn btn-white btn-sm">View Details</a>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-meta">
+          <span class="status-badge in-progress">Product Build</span>
+          <span class="tag">VLM | OCR</span>
+        </div>
+        <h3 class="project-title">Buzz Card - VLM Visiting Card Reader</h3>
+        <p class="project-desc">Mobile-first VLM/OCR workflow for reading visiting cards and turning extracted data into CRM-ready contact records.</p>
+        <div class="project-stack">
+          <span class="tag">VLM</span>
+          <span class="tag">Qwen3</span>
+          <span class="tag">FireRedOCR</span>
+          <span class="tag">Mobile AI</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/prasannab4362" target="_blank" class="btn btn-ghost btn-sm">
+            <i class="fa-brands fa-github"></i> Code
+          </a>
+          <a href="projects.html" class="btn btn-outline btn-sm">
+            <i class="fa-solid fa-arrow-right"></i> Details
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 3 -->
+    <div class="project-card reveal delay-3" data-category="image-ai genai computer-vision">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#047857,#34d399);">
+        <div class="project-thumb-bg"><i class="fa-solid fa-car-side" style="color:rgba(255,255,255,0.92);"></i></div>
+        <div class="project-thumb-overlay">
+          <a href="projects.html" class="btn btn-white btn-sm">View Details</a>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-meta">
+          <span class="status-badge in-progress">Prototype</span>
+          <span class="tag">Stable Diffusion</span>
+        </div>
+        <h3 class="project-title">Stable Diffusion Car Image Editing Studio</h3>
+        <p class="project-desc">Automotive image editing for car color changes, messy-photo cleanup, and studio-level presentation outputs.</p>
+        <div class="project-stack">
+          <span class="tag">Stable Diffusion</span>
+          <span class="tag">ControlNet</span>
+          <span class="tag">YOLOv8</span>
+          <span class="tag">OpenCV</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/prasannab4362/Car_front_Side_Detection" target="_blank" class="btn btn-ghost btn-sm">
+            <i class="fa-brands fa-github"></i> Code
+          </a>
+          <a href="projects.html" class="btn btn-outline btn-sm">
+            <i class="fa-solid fa-arrow-right"></i> Details
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:48px;" class="reveal">
+    <a href="projects.html" class="btn btn-primary btn-lg">
+      <i class="fa-solid fa-border-all"></i> View All Projects
+    </a>
+  </div>
+</section>
+
+<!-- â•â•â•â•â•â•â•â•â•â• SKILLS PREVIEW â•â•â•â•â•â•â•â•â•â• -->
+<section class="skills-preview">
+  <div class="section-header center reveal">
+    <div class="section-label"><i class="fa-solid fa-microchip"></i> Tech Stack</div>
+    <h2 class="section-title">Tools & <span>Technologies</span></h2>
+    <p class="section-subtitle">A snapshot of the tools I use to build production-ready AI and data-driven systems.</p>
+  </div>
+
+  <div class="tech-grid reveal">
+    <div class="tech-item"><div class="tech-icon"><i class="fa-brands fa-python"></i></div><div class="tech-name">Python</div></div>
+    <div class="tech-item"><div class="tech-icon"><i class="fa-brands fa-react"></i></div><div class="tech-name">Next.js</div></div>
+    <div class="tech-item"><div class="tech-icon"><i class="fa-solid fa-mobile-screen-button"></i></div><div class="tech-name">Flutter</div></div>
+    <div class="tech-item"><div class="tech-icon"><i class="fa-brands fa-apple"></i></div><div class="tech-name">iOS</div></div>
+    <div class="tech-item"><div class="tech-icon"><i class="fa-brands fa-android"></i></div><div class="tech-name">Android</div></div>
+    <div class="tech-item"><div class="tech-icon"><i class="fa-solid fa-microchip"></i></div><div class="tech-name">ESP32</div></div>
+    <div class="tech-item"><div class="tech-icon"><i class="fa-solid fa-plug-circle-bolt"></i></div><div class="tech-name">Arduino</div></div>
+    <div class="tech-item"><div class="tech-icon"><i class="fa-solid fa-memory"></i></div><div class="tech-name">PCB</div></div>
+    <div class="tech-item"><div class="tech-icon"><i class="fa-solid fa-robot"></i></div><div class="tech-name">AI Agents</div></div>
+    <div class="tech-item"><div class="tech-icon"><i class="fa-solid fa-eye"></i></div><div class="tech-name">VLM</div></div>
+    <div class="tech-item"><div class="tech-icon"><i class="fa-solid fa-file-lines"></i></div><div class="tech-name">OCR</div></div>
+    <div class="tech-item"><div class="tech-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div><div class="tech-name">Stable Diffusion</div></div>
+    <div class="tech-item"><div class="tech-icon"><i class="fa-solid fa-microphone-lines"></i></div><div class="tech-name">Voice AI</div></div>
+    <div class="tech-item"><div class="tech-icon"><i class="fa-brands fa-whatsapp"></i></div><div class="tech-name">WhatsApp Bot</div></div>
+    <div class="tech-item"><div class="tech-icon"><i class="fa-solid fa-link"></i></div><div class="tech-name">LangChain</div></div>
+    <div class="tech-item"><div class="tech-icon"><i class="fa-solid fa-database"></i></div><div class="tech-name">FAISS</div></div>
+    <div class="tech-item"><div class="tech-icon"><i class="fa-solid fa-brain"></i></div><div class="tech-name">TensorFlow</div></div>
+    <div class="tech-item"><div class="tech-icon"><i class="fa-solid fa-chart-simple"></i></div><div class="tech-name">Power BI</div></div>
+    <div class="tech-item"><div class="tech-icon"><i class="fa-brands fa-docker"></i></div><div class="tech-name">Docker</div></div>
+  </div>
+
+  <div style="text-align:center;margin-top:44px;" class="reveal">
+    <a href="skills.html" class="btn btn-primary">
+      <i class="fa-solid fa-layer-group"></i> View Full Skill Set
+    </a>
+  </div>
+</section>
+
+<!-- â•â•â•â•â•â•â•â•â•â• CTA BANNER â•â•â•â•â•â•â•â•â•â• -->
+<section class="cta-banner">
+  <div class="cta-inner reveal">
+    <div class="section-label" style="justify-content:center;color:var(--accent);">
+      <i class="fa-solid fa-handshake"></i> Let's Collaborate
+    </div>
+    <h2>Have a project idea?<br /><span>Let's build it with AI.</span></h2>
+    <p>Whether it's a RAG system, VLM/OCR workflow, image AI pipeline, or intelligent automation - I'm ready to turn your vision into reality.</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <a href="contact.html" class="btn btn-primary btn-lg">
+        <i class="fa-solid fa-paper-plane"></i> Start a Conversation
+      </a>
+      <a href="mailto:prasannamb4362@gmail.com" class="btn btn-white btn-lg">
+        <i class="fa-solid fa-envelope"></i> prasannamb4362@gmail.com
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- â•â•â•â•â•â•â•â•â•â• FOOTER â•â•â•â•â•â•â•â•â•â• -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="logo-badge">PB</div>
+        <div class="logo-text">
+          <div class="logo-name">Prasanna B</div>
+          <div class="logo-role">AI & ML Engineer</div>
+        </div>
+      </div>
+      <p>Building intelligent AI products with Python, LangChain, TensorFlow, and Gemini API. Open to exciting opportunities and collaborations.</p>
+      <div class="footer-social">
+        <a href="https://github.com/prasannab4362" target="_blank" class="social-btn" aria-label="GitHub">
+          <i class="fa-brands fa-github"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/prasanna-balaji18/" target="_blank" class="social-btn" aria-label="LinkedIn">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+        <a href="mailto:prasannamb4362@gmail.com" class="social-btn" aria-label="Email">
+          <i class="fa-solid fa-envelope"></i>
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <div class="footer-heading">Quick Links</div>
+      <ul class="footer-links">
+        <li><a href="index.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Home</a></li>
+        <li><a href="about.html"><i class="fa-solid fa-chevron-right fa-xs"></i> About</a></li>
+        <li><a href="skills.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Skills</a></li>
+        <li><a href="projects.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Projects</a></li>
+        <li><a href="experience.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Experience</a></li>
+        <li><a href="contact.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Contact</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer-heading">Contact Info</div>
+      <ul class="footer-links">
+        <li><a href="mailto:prasannamb4362@gmail.com"><i class="fa-solid fa-envelope fa-xs"></i> prasannamb4362@gmail.com</a></li>
+        <li><a href="tel:+918610318934"><i class="fa-solid fa-phone fa-xs"></i> +91 8610318934</a></li>
+        <li><a href="#"><i class="fa-solid fa-location-dot fa-xs"></i> Coimbatore, Tamil Nadu</a></li>
+        <li><a href="https://github.com/prasannab4362" target="_blank"><i class="fa-brands fa-github fa-xs"></i> github.com/prasannab4362</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2026 <span>Prasanna B</span>. Crafted with <span>heart</span> & Python.</p>
+    <p>AI & ML Engineer | Coimbatore, India</p>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
 </body>
 </html>
+
+

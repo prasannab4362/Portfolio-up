@@ -1,0 +1,867 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects | Prasanna B</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* Filter Bar */
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 50px;
+    }
+
+    .filter-btn {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 9px 22px;
+      border-radius: 100px;
+      background: var(--light-bg);
+      border: 1.5px solid var(--border);
+      color: var(--text-mid);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--gradient);
+      border-color: transparent;
+      color: var(--white);
+      box-shadow: 0 4px 14px rgba(16,185,129,0.3);
+    }
+
+    /* Projects Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 28px;
+    }
+
+    .project-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .project-card:hover {
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .project-thumb {
+      height: 200px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-thumb-bg {
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      position: relative;
+    }
+
+    .project-thumb-bg i {
+      color: rgba(255,255,255,0.92);
+      filter: drop-shadow(0 14px 28px rgba(0,0,0,0.22));
+      position: relative;
+      z-index: 1;
+    }
+
+    .project-thumb-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
+    }
+
+    .project-thumb-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(6,78,59,0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      opacity: 0;
+      transition: var(--transition);
+      z-index: 2;
+    }
+
+    .project-card:hover .project-thumb-overlay { opacity: 1; }
+
+    .project-body { padding: 26px; flex: 1; display: flex; flex-direction: column; }
+
+    .project-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .project-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .project-desc {
+      font-size: 0.88rem;
+      color: var(--text-light);
+      line-height: 1.75;
+      flex: 1;
+      margin-bottom: 18px;
+    }
+
+    .project-features {
+      list-style: none;
+      margin-bottom: 18px;
+    }
+
+    .project-features li {
+      font-size: 0.84rem;
+      color: var(--text-mid);
+      padding: 4px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .project-features li::before {
+      content: '>';
+      color: var(--primary);
+      flex-shrink: 0;
+      font-weight: 700;
+    }
+
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 20px;
+    }
+
+    .project-links { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .repo-note {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      line-height: 1.55;
+      margin-top: 4px;
+    }
+
+    .repo-strip {
+      margin-top: 46px;
+      padding: 28px;
+      background: var(--light-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .repo-strip-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .repo-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .repo-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 13px;
+      border-radius: 10px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      color: var(--text-mid);
+      font-size: 0.83rem;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .repo-link:hover {
+      color: var(--primary-dark);
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-xs);
+    }
+
+    /* Featured Badge */
+    .featured-ribbon {
+      position: absolute;
+      top: 14px; right: 14px;
+      background: var(--gradient);
+      color: var(--white);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 100px;
+      letter-spacing: 0.5px;
+      z-index: 3;
+    }
+
+    /* Stats section */
+    .proj-stats {
+      background: var(--gradient-hero);
+      padding: 70px 5%;
+      text-align: center;
+    }
+
+    .proj-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .proj-stat-num {
+      font-family: 'Poppins', sans-serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .proj-stat-label {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.65);
+      margin-top: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .projects-grid { grid-template-columns: 1fr; }
+      .proj-stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<div id="scroll-progress"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html" class="navbar-logo">
+    <div class="logo-badge">PB</div>
+    <div class="logo-text">
+      <div class="logo-name">Prasanna B</div>
+      <div class="logo-role">AI & ML Engineer</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="skills.html">Skills</a>
+    <a href="projects.html">Projects</a>
+    <a href="experience.html">Experience</a>
+    <a href="contact.html" class="nav-cta">Contact</a>
+  </div>
+  <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu">
+  <button class="mobile-close"><i class="fa-solid fa-xmark"></i></button>
+  <a href="index.html">Home</a><a href="about.html">About</a>
+  <a href="skills.html">Skills</a><a href="projects.html">Projects</a>
+  <a href="experience.html">Experience</a><a href="contact.html">Contact</a>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-content">
+    <div class="page-badge"><i class="fa-solid fa-code-branch"></i> My Projects</div>
+    <h1>Building AI That<br /><span>Solves Real Problems</span></h1>
+    <p>A collection of AI/ML projects across Agentic AI, VLM/OCR, Computer Vision, Image AI, Voice AI, NLP, and Data Science.</p>
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fa-solid fa-chevron-right fa-xs"></i>
+      <span>Projects</span>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section style="background:var(--white);">
+  <!-- Filter -->
+  <div class="filter-bar reveal">
+    <button class="filter-btn active" data-filter="all">All Projects</button>
+    <button class="filter-btn" data-filter="agentic-ai">Agentic AI</button>
+    <button class="filter-btn" data-filter="vlm">VLM</button>
+    <button class="filter-btn" data-filter="image-ai">Image AI</button>
+    <button class="filter-btn" data-filter="voice-ai">Voice AI</button>
+    <button class="filter-btn" data-filter="crm">CRM Bots</button>
+    <button class="filter-btn" data-filter="computer-vision">Computer Vision</button>
+    <button class="filter-btn" data-filter="genai">Generative AI</button>
+    <button class="filter-btn" data-filter="nlp">NLP</button>
+    <button class="filter-btn" data-filter="ml">Machine Learning</button>
+  </div>
+
+  <!-- Grid -->
+  <div class="projects-grid">
+
+    <!-- Project: Nami Agent -->
+    <div class="project-card reveal delay-1" data-category="agentic-ai genai">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#022c22,#0f766e);">
+        <div class="project-thumb-bg"><i class="fa-solid fa-robot"></i></div>
+        <span class="featured-ribbon"><i class="fa-solid fa-star fa-xs"></i> New</span>
+        <div class="project-thumb-overlay">
+          <a href="https://github.com/prasannab4362/Nami_agent" target="_blank" class="btn btn-white btn-sm">
+            <i class="fa-brands fa-github"></i> Code
+          </a>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-meta">
+          <span class="status-badge in-progress">Active Build</span>
+          <div style="display:flex;gap:6px;">
+            <span class="tag">Agentic AI</span>
+            <span class="tag">Python</span>
+          </div>
+        </div>
+        <h3 class="project-title">Nami Agent - Calendar Bot & Development AI Agent</h3>
+        <p class="project-desc">An agentic AI assistant for calendar workflows and development support, designed as a testable foundation for user-facing automation.</p>
+        <ul class="project-features">
+          <li>Python-based agent workflow for task planning and user access flows</li>
+          <li>Calendar bot direction with expandable automation modules</li>
+          <li>Repository maintained under the updated GitHub profile</li>
+        </ul>
+        <div class="project-stack">
+          <span class="tag">Python</span>
+          <span class="tag">AI Agents</span>
+          <span class="tag">Automation</span>
+          <span class="tag">Workflow</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/prasannab4362/Nami_agent" target="_blank" class="btn btn-ghost btn-sm">
+            <i class="fa-brands fa-github"></i> GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project: Buzz Card VLM -->
+    <div class="project-card reveal delay-2" data-category="vlm computer-vision genai mobile">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#064e3b,#0ea5e9);">
+        <div class="project-thumb-bg"><i class="fa-solid fa-id-card-clip"></i></div>
+        <span class="featured-ribbon"><i class="fa-solid fa-star fa-xs"></i> VLM</span>
+        <div class="project-thumb-overlay">
+          <a href="https://github.com/prasannab4362" target="_blank" class="btn btn-white btn-sm">
+            <i class="fa-brands fa-github"></i> Repos
+          </a>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-meta">
+          <span class="status-badge in-progress">Product Build</span>
+          <div style="display:flex;gap:6px;">
+            <span class="tag">VLM</span>
+            <span class="tag">Mobile</span>
+          </div>
+        </div>
+        <h3 class="project-title">Buzz Card - VLM Visiting Card Reader</h3>
+        <p class="project-desc">A mobile-first vision-language workflow for reading visiting cards, extracting contact data, and turning physical cards into CRM-ready records.</p>
+        <ul class="project-features">
+          <li>VLM-based card understanding for names, roles, company, phone, email, and address</li>
+          <li>OCR cleanup pipeline with Qwen3 and FireRedOCR direction</li>
+          <li>Designed for mobile capture, validation, and contact export</li>
+        </ul>
+        <div class="project-stack">
+          <span class="tag">VLM</span>
+          <span class="tag">OCR</span>
+          <span class="tag">Qwen3</span>
+          <span class="tag">FireRedOCR</span>
+          <span class="tag">Mobile AI</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/prasannab4362" target="_blank" class="btn btn-ghost btn-sm">
+            <i class="fa-brands fa-github"></i> GitHub Profile
+          </a>
+        </div>
+        <div class="repo-note">Public repository can be connected when it is published.</div>
+      </div>
+    </div>
+
+    <!-- Project: Stable Diffusion Image Editing -->
+    <div class="project-card reveal delay-3" data-category="image-ai genai computer-vision">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#14532d,#f59e0b);">
+        <div class="project-thumb-bg"><i class="fa-solid fa-car-side"></i></div>
+        <span class="featured-ribbon"><i class="fa-solid fa-star fa-xs"></i> Image AI</span>
+        <div class="project-thumb-overlay">
+          <a href="https://github.com/prasannab4362/Car_front_Side_Detection" target="_blank" class="btn btn-white btn-sm">
+            <i class="fa-brands fa-github"></i> Related Repo
+          </a>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-meta">
+          <span class="status-badge in-progress">Prototype</span>
+          <div style="display:flex;gap:6px;">
+            <span class="tag">Stable Diffusion</span>
+            <span class="tag">Vision</span>
+          </div>
+        </div>
+        <h3 class="project-title">Stable Diffusion Car Image Editing Studio</h3>
+        <p class="project-desc">Image editing pipeline for automotive use cases: change car colors, clean messy photos, and generate studio-level vehicle presentation images.</p>
+        <ul class="project-features">
+          <li>Car color transformation and controlled image-to-image editing</li>
+          <li>Messy outdoor car photos enhanced into studio-style outputs</li>
+          <li>Pairs detection, segmentation, and diffusion models for usable results</li>
+        </ul>
+        <div class="project-stack">
+          <span class="tag">Stable Diffusion</span>
+          <span class="tag">ControlNet</span>
+          <span class="tag">YOLOv8</span>
+          <span class="tag">OpenCV</span>
+          <span class="tag">Python</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/prasannab4362/Car_front_Side_Detection" target="_blank" class="btn btn-ghost btn-sm">
+            <i class="fa-brands fa-github"></i> Related GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project: Voice Cloning -->
+    <div class="project-card reveal delay-1" data-category="voice-ai genai">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#064e3b,#7c3aed);">
+        <div class="project-thumb-bg"><i class="fa-solid fa-microphone-lines"></i></div>
+        <div class="project-thumb-overlay">
+          <a href="https://github.com/prasannab4362" target="_blank" class="btn btn-white btn-sm">
+            <i class="fa-brands fa-github"></i> Repos
+          </a>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-meta">
+          <span class="status-badge in-progress">Research Build</span>
+          <div style="display:flex;gap:6px;">
+            <span class="tag">Voice AI</span>
+            <span class="tag">GenAI</span>
+          </div>
+        </div>
+        <h3 class="project-title">Voice Cloning & Speech Synthesis Pipeline</h3>
+        <p class="project-desc">A voice AI workflow focused on speaker cloning, clean dataset preparation, and natural speech generation for product demos and assistants.</p>
+        <ul class="project-features">
+          <li>Speaker voice capture, preprocessing, and embedding workflow</li>
+          <li>Text-to-speech generation for assistant and demo scenarios</li>
+          <li>Built with responsible consent-first voice cloning assumptions</li>
+        </ul>
+        <div class="project-stack">
+          <span class="tag">TTS</span>
+          <span class="tag">Voice Cloning</span>
+          <span class="tag">Python</span>
+          <span class="tag">Audio ML</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/prasannab4362" target="_blank" class="btn btn-ghost btn-sm">
+            <i class="fa-brands fa-github"></i> GitHub Profile
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project: WhatsApp CRM Bot -->
+    <div class="project-card reveal delay-2" data-category="agentic-ai crm genai">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#052e16,#22c55e);">
+        <div class="project-thumb-bg"><i class="fa-brands fa-whatsapp"></i></div>
+        <div class="project-thumb-overlay">
+          <a href="https://github.com/prasannab4362" target="_blank" class="btn btn-white btn-sm">
+            <i class="fa-brands fa-github"></i> Repos
+          </a>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-meta">
+          <span class="status-badge in-progress">Workflow</span>
+          <div style="display:flex;gap:6px;">
+            <span class="tag">WhatsApp</span>
+            <span class="tag">CRM</span>
+          </div>
+        </div>
+        <h3 class="project-title">WhatsApp Bot CRM Automation</h3>
+        <p class="project-desc">A conversational CRM workflow for capturing leads, answering first-level queries, updating customer records, and escalating qualified requests.</p>
+        <ul class="project-features">
+          <li>Lead capture and follow-up flows for business messaging</li>
+          <li>CRM record updates, intent routing, and handoff-ready conversation design</li>
+          <li>Agentic AI direction for task execution beyond simple FAQ bots</li>
+        </ul>
+        <div class="project-stack">
+          <span class="tag">WhatsApp API</span>
+          <span class="tag">CRM</span>
+          <span class="tag">Python</span>
+          <span class="tag">Agentic AI</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/prasannab4362" target="_blank" class="btn btn-ghost btn-sm">
+            <i class="fa-brands fa-github"></i> GitHub Profile
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 1: Face Attendance -->
+    <div class="project-card reveal delay-1" data-category="computer-vision ml">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#022c22,#10b981);">
+        <div class="project-thumb-bg"><i class="fa-solid fa-user-shield"></i></div>
+        <span class="featured-ribbon"><i class="fa-solid fa-star fa-xs"></i> Featured</span>
+        <div class="project-thumb-overlay">
+          <a href="https://github.com/prasannab4362/Real_Time_Face_Anti-spoofing_Detection" target="_blank" class="btn btn-white btn-sm">
+            <i class="fa-brands fa-github"></i> Code
+          </a>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-meta">
+          <span class="status-badge completed">Completed</span>
+          <div style="display:flex;gap:6px;">
+            <span class="tag">CV</span>
+            <span class="tag">Deep Learning</span>
+          </div>
+        </div>
+        <h3 class="project-title">Smart Face-Based Attendance System with Anti-Spoofing</h3>
+        <p class="project-desc">A production-grade real-time attendance system that leverages face recognition combined with CNN-based liveness detection to completely prevent photo/video spoof attacks.</p>
+        <ul class="project-features">
+          <li>Real-time face recognition using OpenCV & deep embedding models</li>
+          <li>CNN-based liveness detection to prevent spoof attacks</li>
+          <li>Interactive Streamlit dashboard for attendance management</li>
+          <li>Anti-spoofing with &gt;95% accuracy on test set</li>
+        </ul>
+        <div class="project-stack">
+          <span class="tag">OpenCV</span>
+          <span class="tag">TensorFlow</span>
+          <span class="tag">CNN</span>
+          <span class="tag">Streamlit</span>
+          <span class="tag">Python</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/prasannab4362/Real_Time_Face_Anti-spoofing_Detection" target="_blank" class="btn btn-ghost btn-sm">
+            <i class="fa-brands fa-github"></i> GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 2: AI Legal Assistant -->
+    <div class="project-card reveal delay-2" data-category="genai nlp llm">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#1a1a2e,#059669);">
+        <div class="project-thumb-bg"><i class="fa-solid fa-scale-balanced"></i></div>
+        <span class="featured-ribbon"><i class="fa-solid fa-star fa-xs"></i> Featured</span>
+        <div class="project-thumb-overlay">
+          <a href="https://github.com/prasannab4362" target="_blank" class="btn btn-white btn-sm">
+            <i class="fa-brands fa-github"></i> Code
+          </a>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-meta">
+          <span class="status-badge completed">Completed</span>
+          <div style="display:flex;gap:6px;">
+            <span class="tag">GenAI</span>
+            <span class="tag">RAG</span>
+          </div>
+        </div>
+        <h3 class="project-title">AI Legal Assistant (LLM + RAG)</h3>
+        <p class="project-desc">An intelligent legal chatbot that answers complex IPC (Indian Penal Code) and Constitution of India queries with source-level document retrieval powered by RAG architecture.</p>
+        <ul class="project-features">
+          <li>Retrieval-Augmented Generation (RAG) pipeline with FAISS vector store</li>
+          <li>Gemini 1.5 Flash for high-quality answer generation</li>
+          <li>LangChain orchestration for multi-step reasoning</li>
+          <li>Source citation with document chunk references</li>
+        </ul>
+        <div class="project-stack">
+          <span class="tag">Gemini 1.5 Flash</span>
+          <span class="tag">LangChain</span>
+          <span class="tag">FAISS</span>
+          <span class="tag">RAG</span>
+          <span class="tag">Streamlit</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/prasannab4362" target="_blank" class="btn btn-ghost btn-sm">
+            <i class="fa-brands fa-github"></i> GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 3: EduMentor -->
+    <div class="project-card reveal delay-3" data-category="genai nlp education">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#064e3b,#34d399);">
+        <div class="project-thumb-bg"><i class="fa-solid fa-book-open-reader"></i></div>
+        <div class="project-thumb-overlay">
+          <a href="https://github.com/prasannab4362/EduPDF-Chatbot-Ask-Your-Lesson" target="_blank" class="btn btn-white btn-sm">
+            <i class="fa-brands fa-github"></i> Code
+          </a>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-meta">
+          <span class="status-badge in-progress">In Progress</span>
+          <div style="display:flex;gap:6px;">
+            <span class="tag">EdTech</span>
+            <span class="tag">GenAI</span>
+          </div>
+        </div>
+        <h3 class="project-title">EduPDF Chatbot - Ask Your Lesson</h3>
+        <p class="project-desc">A GenAI-powered personalized learning assistant that enables students to query textbooks, generate summaries, and create custom quizzes from uploaded PDF study materials.</p>
+        <ul class="project-features">
+          <li>Textbook-based Q&A with source-grounded answers</li>
+          <li>Automatic chapter summarization using Gemini API</li>
+          <li>Dynamic quiz generation from learning content</li>
+          <li>Student progress tracking dashboard</li>
+        </ul>
+        <div class="project-stack">
+          <span class="tag">LangChain</span>
+          <span class="tag">Gemini API</span>
+          <span class="tag">Streamlit</span>
+          <span class="tag">FAISS</span>
+          <span class="tag">Python</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/prasannab4362/EduPDF-Chatbot-Ask-Your-Lesson" target="_blank" class="btn btn-ghost btn-sm">
+            <i class="fa-brands fa-github"></i> GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 4: Housing Price -->
+    <div class="project-card reveal delay-1" data-category="ml data-science">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#047857,#6ee7b7);">
+        <div class="project-thumb-bg"><i class="fa-solid fa-chart-line"></i></div>
+        <div class="project-thumb-overlay">
+          <a href="https://github.com/prasannab4362" target="_blank" class="btn btn-white btn-sm">
+            <i class="fa-brands fa-github"></i> Code
+          </a>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-meta">
+          <span class="status-badge completed">Completed</span>
+          <div style="display:flex;gap:6px;">
+            <span class="tag">ML</span>
+            <span class="tag">Regression</span>
+          </div>
+        </div>
+        <h3 class="project-title">Housing Price Prediction (ML Pipeline)</h3>
+        <p class="project-desc">A complete end-to-end ML regression pipeline to predict housing prices with advanced feature engineering, PCA-based dimensionality reduction, and thorough model comparison.</p>
+        <ul class="project-features">
+          <li>PCA-based feature selection reducing dimensions by 40%</li>
+          <li>Compared Linear, Ridge, Lasso, Random Forest, XGBoost</li>
+          <li>Hyperparameter tuning with GridSearchCV</li>
+          <li>Interactive Matplotlib/Seaborn visualization report</li>
+        </ul>
+        <div class="project-stack">
+          <span class="tag">Scikit-learn</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">PCA</span>
+          <span class="tag">Matplotlib</span>
+          <span class="tag">Python</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/prasannab4362" target="_blank" class="btn btn-ghost btn-sm">
+            <i class="fa-brands fa-github"></i> GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 5: Stock Analysis (from old portfolio) -->
+    <div class="project-card reveal delay-2" data-category="ml data-science">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#1e3a2f,#10b981);">
+        <div class="project-thumb-bg"><i class="fa-solid fa-arrow-trend-up"></i></div>
+        <div class="project-thumb-overlay">
+          <a href="https://github.com/prasannab4362" target="_blank" class="btn btn-white btn-sm">
+            <i class="fa-brands fa-github"></i> Code
+          </a>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-meta">
+          <span class="status-badge completed">Completed</span>
+          <div style="display:flex;gap:6px;">
+            <span class="tag">Data Science</span>
+          </div>
+        </div>
+        <h3 class="project-title">Stock Analysis Application</h3>
+        <p class="project-desc">A data-driven stock analysis application with web scraping from Screener.in, ML-based pattern analysis, and interactive dashboards to enhance investor decision-making.</p>
+        <ul class="project-features">
+          <li>Web scraping from Screener.in for real-time financial data</li>
+          <li>ML-based trend classification and pattern detection</li>
+          <li>Interactive visualization dashboard built with Django</li>
+        </ul>
+        <div class="project-stack">
+          <span class="tag">Python</span>
+          <span class="tag">Django</span>
+          <span class="tag">Scikit-learn</span>
+          <span class="tag">BeautifulSoup</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/prasannab4362" target="_blank" class="btn btn-ghost btn-sm">
+            <i class="fa-brands fa-github"></i> GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 6: Job Placement -->
+    <div class="project-card reveal delay-3" data-category="ml data-science">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#065f46,#a7f3d0);">
+        <div class="project-thumb-bg"><i class="fa-solid fa-briefcase"></i></div>
+        <div class="project-thumb-overlay">
+          <a href="https://github.com/prasannab4362" target="_blank" class="btn btn-white btn-sm">
+            <i class="fa-brands fa-github"></i> Code
+          </a>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-meta">
+          <span class="status-badge completed">Completed</span>
+          <div style="display:flex;gap:6px;">
+            <span class="tag">Classification</span>
+          </div>
+        </div>
+        <h3 class="project-title">Job Placement Prediction (R)</h3>
+        <p class="project-desc">An R-based data science project using Naive Bayes classification to predict student job placement outcomes from academic and extracurricular features with 85% accuracy.</p>
+        <ul class="project-features">
+          <li>Naive Bayes classification achieving 85% accuracy</li>
+          <li>Complete EDA with R and ggplot2 visualizations</li>
+          <li>Feature importance analysis and model evaluation</li>
+        </ul>
+        <div class="project-stack">
+          <span class="tag">R</span>
+          <span class="tag">Naive Bayes</span>
+          <span class="tag">ggplot2</span>
+          <span class="tag">R Studio</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/prasannab4362" target="_blank" class="btn btn-ghost btn-sm">
+            <i class="fa-brands fa-github"></i> GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="repo-strip reveal">
+    <div class="repo-strip-title"><i class="fa-brands fa-github"></i> Public Repository Ecosystem</div>
+    <div class="repo-links">
+      <a class="repo-link" href="https://github.com/prasannab4362/Nami_agent" target="_blank"><i class="fa-solid fa-robot"></i> Nami_agent</a>
+      <a class="repo-link" href="https://github.com/prasannab4362/jump-height-estimator" target="_blank"><i class="fa-solid fa-person-running"></i> jump-height-estimator</a>
+      <a class="repo-link" href="https://github.com/prasannab4362/Real_Time_Face_Anti-spoofing_Detection" target="_blank"><i class="fa-solid fa-user-shield"></i> Face Anti-spoofing</a>
+      <a class="repo-link" href="https://github.com/prasannab4362/Car_front_Side_Detection" target="_blank"><i class="fa-solid fa-car-side"></i> Car Front/Side Detection</a>
+      <a class="repo-link" href="https://github.com/prasannab4362/Computer_Vision_Task-Defective_Product_Detector" target="_blank"><i class="fa-solid fa-magnifying-glass-chart"></i> Defective Product Detector</a>
+      <a class="repo-link" href="https://github.com/prasannab4362/NLP_Task-Customer_Review_Sentiment_Classifier" target="_blank"><i class="fa-solid fa-comments"></i> Sentiment Classifier</a>
+      <a class="repo-link" href="https://github.com/prasannab4362/EduPDF-Chatbot-Ask-Your-Lesson" target="_blank"><i class="fa-solid fa-book-open-reader"></i> EduPDF Chatbot</a>
+      <a class="repo-link" href="https://github.com/prasannab4362/Automated-Brain-Tumor-Detection" target="_blank"><i class="fa-solid fa-brain"></i> Brain Tumor Detection</a>
+      <a class="repo-link" href="https://github.com/prasannab4362/Xerox-project" target="_blank"><i class="fa-solid fa-copy"></i> Xerox-project</a>
+      <a class="repo-link" href="https://github.com/prasannab4362/Spark-Innov8-web" target="_blank"><i class="fa-solid fa-bolt"></i> Spark-Innov8-web</a>
+      <a class="repo-link" href="https://github.com/prasannab4362/AIML-Projects" target="_blank"><i class="fa-solid fa-layer-group"></i> AIML-Projects</a>
+      <a class="repo-link" href="https://github.com/prasannab4362" target="_blank"><i class="fa-brands fa-github"></i> View all 57 repositories</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT STATS -->
+<section class="proj-stats">
+  <div class="section-header center reveal" style="margin-bottom:50px;">
+    <div class="section-label" style="color:var(--accent);justify-content:center;"><i class="fa-solid fa-chart-simple"></i> By The Numbers</div>
+    <h2 class="section-title" style="color:var(--white);">Project <span>Impact</span></h2>
+  </div>
+  <div class="proj-stats-grid reveal">
+    <div>
+      <div class="proj-stat-num" data-count="57">0</div>
+      <div class="proj-stat-label">Public GitHub Repositories</div>
+    </div>
+    <div>
+      <div class="proj-stat-num" data-count="8" data-suffix="+">0+</div>
+      <div class="proj-stat-label">AI Product Directions</div>
+    </div>
+    <div>
+      <div class="proj-stat-num" data-count="6" data-suffix="+">0+</div>
+      <div class="proj-stat-label">Vision & VLM Builds</div>
+    </div>
+    <div>
+      <div class="proj-stat-num" data-count="20" data-suffix="+">0+</div>
+      <div class="proj-stat-label">Technologies Used</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="logo-badge">PB</div>
+        <div class="logo-text">
+          <div class="logo-name">Prasanna B</div>
+          <div class="logo-role">AI & ML Engineer</div>
+        </div>
+      </div>
+      <p>Building intelligent AI products with Python, LangChain, TensorFlow, and Gemini API.</p>
+      <div class="footer-social">
+        <a href="https://github.com/prasannab4362" target="_blank" class="social-btn"><i class="fa-brands fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/prasanna-balaji18/" target="_blank" class="social-btn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="mailto:prasannamb4362@gmail.com" class="social-btn"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-heading">Quick Links</div>
+      <ul class="footer-links">
+        <li><a href="index.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Home</a></li>
+        <li><a href="about.html"><i class="fa-solid fa-chevron-right fa-xs"></i> About</a></li>
+        <li><a href="skills.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Skills</a></li>
+        <li><a href="projects.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Projects</a></li>
+        <li><a href="experience.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Experience</a></li>
+        <li><a href="contact.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Contact</div>
+      <ul class="footer-links">
+        <li><a href="mailto:prasannamb4362@gmail.com"><i class="fa-solid fa-envelope fa-xs"></i> prasannamb4362@gmail.com</a></li>
+        <li><a href="tel:+918610318934"><i class="fa-solid fa-phone fa-xs"></i> +91 8610318934</a></li>
+        <li><a href="#"><i class="fa-solid fa-location-dot fa-xs"></i> Coimbatore, Tamil Nadu</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 <span>Prasanna B</span>. Crafted with <span>heart</span> & Python.</p>
+    <p>AI & ML Engineer | Coimbatore, India</p>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
+
+

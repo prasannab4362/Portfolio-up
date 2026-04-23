@@ -1,0 +1,527 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About | Prasanna B</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* â”€â”€ About Page Styles â”€â”€â”€â”€â”€â”€â”€ */
+    .about-main {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 70px;
+      align-items: start;
+    }
+
+    .profile-card {
+      background: var(--light-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 40px 28px;
+      text-align: center;
+      position: sticky;
+      top: 90px;
+    }
+
+    .profile-avatar {
+      width: 120px; height: 120px;
+      background: var(--gradient);
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: var(--white);
+      box-shadow: 0 8px 30px rgba(16,185,129,0.4);
+    }
+
+    .profile-name {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+
+    .profile-title {
+      font-size: 0.88rem;
+      color: var(--primary-dark);
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .profile-info-list {
+      text-align: left;
+      margin: 20px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .profile-info-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.88rem;
+      color: var(--text-mid);
+    }
+
+    .profile-info-item i {
+      width: 34px; height: 34px;
+      background: var(--primary-pale);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-dark);
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .profile-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 22px 0;
+    }
+
+    .profile-social {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* What I Do Cards */
+    .what-i-do-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-bottom: 50px;
+    }
+
+    .wid-card {
+      background: var(--light-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 26px;
+      transition: var(--transition);
+    }
+
+    .wid-card:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-sm);
+      transform: translateY(-4px);
+    }
+
+    .wid-icon {
+      width: 52px; height: 52px;
+      background: var(--gradient);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      color: var(--white);
+      margin-bottom: 16px;
+      box-shadow: 0 6px 16px rgba(16,185,129,0.3);
+    }
+
+    .wid-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .wid-desc { font-size: 0.87rem; color: var(--text-light); line-height: 1.7; }
+
+    /* Education Section */
+    .education-section { background: var(--light-bg); }
+
+    .edu-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 24px;
+      align-items: start;
+      transition: var(--transition);
+    }
+
+    .edu-card:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow);
+      transform: translateY(-4px);
+    }
+
+    .edu-icon {
+      width: 64px; height: 64px;
+      background: var(--gradient);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+
+    .edu-year {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--primary);
+      background: var(--primary-pale);
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 10px;
+    }
+
+    .edu-degree {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+
+    .edu-school {
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      font-weight: 500;
+      margin-bottom: 14px;
+    }
+
+    .edu-cgpa {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary-pale);
+      color: var(--primary-darker);
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 100px;
+    }
+
+    /* Interests */
+    .interests-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 14px;
+      margin-top: 0;
+    }
+
+    .interest-chip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-mid);
+      transition: var(--transition);
+    }
+
+    .interest-chip:hover {
+      border-color: var(--primary);
+      color: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-xs);
+    }
+
+    .interest-chip i { color: var(--primary); font-size: 1rem; }
+
+    @media (max-width: 900px) {
+      .about-main { grid-template-columns: 1fr; }
+      .profile-card { position: static; max-width: 420px; margin: 0 auto; }
+      .what-i-do-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="scroll-progress"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html" class="navbar-logo">
+    <div class="logo-badge">PB</div>
+    <div class="logo-text">
+      <div class="logo-name">Prasanna B</div>
+      <div class="logo-role">AI & ML Engineer</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="skills.html">Skills</a>
+    <a href="projects.html">Projects</a>
+    <a href="experience.html">Experience</a>
+    <a href="contact.html" class="nav-cta">Contact</a>
+  </div>
+  <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu">
+  <button class="mobile-close"><i class="fa-solid fa-xmark"></i></button>
+  <a href="index.html">Home</a><a href="about.html">About</a>
+  <a href="skills.html">Skills</a><a href="projects.html">Projects</a>
+  <a href="experience.html">Experience</a><a href="contact.html">Contact</a>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-content">
+    <div class="page-badge"><i class="fa-solid fa-user"></i> About Me</div>
+    <h1>The Person Behind<br /><span>The Code</span></h1>
+    <p>AI/ML Engineer, Data Scientist, and lifelong learner building intelligent systems that solve real problems.</p>
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fa-solid fa-chevron-right fa-xs"></i>
+      <span>About</span>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT MAIN -->
+<section style="background:var(--white);">
+  <div class="about-main">
+
+    <!-- Sidebar Profile Card -->
+    <div class="profile-card reveal">
+      <div class="profile-avatar">PB</div>
+      <div class="profile-name">Prasanna B</div>
+      <div class="profile-title">Python Developer | AI & ML Engineer</div>
+      <div style="display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-bottom:4px;">
+        <span class="tag">Python</span>
+        <span class="tag">LangChain</span>
+        <span class="tag">RAG</span>
+        <span class="tag">TensorFlow</span>
+      </div>
+
+      <div class="profile-divider"></div>
+
+      <ul class="profile-info-list">
+        <li class="profile-info-item">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>Coimbatore, Tamil Nadu, India</span>
+        </li>
+        <li class="profile-info-item">
+          <i class="fa-solid fa-envelope"></i>
+          <a href="mailto:prasannamb4362@gmail.com" style="color:var(--text-mid)">prasannamb4362@gmail.com</a>
+        </li>
+        <li class="profile-info-item">
+          <i class="fa-solid fa-phone"></i>
+          <a href="tel:+918610318934" style="color:var(--text-mid)">+91 8610318934</a>
+        </li>
+        <li class="profile-info-item">
+          <i class="fa-brands fa-github"></i>
+          <a href="https://github.com/prasannab4362" target="_blank" style="color:var(--text-mid)">github.com/prasannab4362</a>
+        </li>
+        <li class="profile-info-item">
+          <i class="fa-brands fa-linkedin"></i>
+          <a href="https://www.linkedin.com/in/prasanna-balaji18/" target="_blank" style="color:var(--text-mid)">prasanna-balaji18</a>
+        </li>
+      </ul>
+
+      <div class="profile-divider"></div>
+
+      <div class="profile-social">
+        <a href="https://github.com/prasannab4362" target="_blank" class="social-btn" style="background:var(--light-bg);border:1px solid var(--border);color:var(--text-mid);" aria-label="GitHub">
+          <i class="fa-brands fa-github"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/prasanna-balaji18/" target="_blank" class="social-btn" style="background:var(--light-bg);border:1px solid var(--border);color:var(--text-mid);" aria-label="LinkedIn">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+        <a href="mailto:prasannamb4362@gmail.com" class="social-btn" style="background:var(--light-bg);border:1px solid var(--border);color:var(--text-mid);" aria-label="Email">
+          <i class="fa-solid fa-envelope"></i>
+        </a>
+      </div>
+
+      <div class="profile-divider"></div>
+      <a href="contact.html" class="btn btn-primary" style="width:100%;justify-content:center;">
+        <i class="fa-solid fa-paper-plane"></i> Hire Me
+      </a>
+    </div>
+
+    <!-- Main Content -->
+    <div>
+      <!-- Bio -->
+      <div class="reveal" style="margin-bottom:50px;">
+        <div class="section-label"><i class="fa-solid fa-id-card"></i> Bio</div>
+        <h2 class="section-title">Who I Am</h2>
+        <p style="color:var(--text-mid);line-height:1.9;margin-bottom:18px;">
+          I'm <strong style="color:var(--text-dark)">Prasanna B</strong>, an AI/ML Engineer and Data Science enthusiast
+          based in Coimbatore, India. I specialize in building real-world AI systems - from Computer Vision pipelines
+          and NLP models to production-grade Generative AI applications.
+        </p>
+        <p style="color:var(--text-mid);line-height:1.9;margin-bottom:18px;">
+          Currently working as a <strong style="color:var(--text-dark)">Python Developer at Creative Bees</strong>, after
+          serving as a <strong style="color:var(--text-dark)">Robotics Engineer at Robomatic</strong> from June 2023 to August 2025,
+          I build AI-powered product workflows, full-stack apps, mobile apps, VLM/OCR tools, intelligent automation,
+          and IoT/hardware prototypes.
+        </p>
+        <p style="color:var(--text-mid);line-height:1.9;">
+          My core stack includes Python, Next.js, Flutter for iOS/Android, TensorFlow, LangChain, FAISS, VLM/OCR
+          pipelines, Arduino programming, ESP32, Arduino Uno R3, PCB prototyping, and agentic AI tools. I'm passionate
+          about turning research into practical, deployable software and hardware products.
+        </p>
+      </div>
+
+      <!-- What I Do -->
+      <div class="reveal" style="margin-bottom:50px;">
+        <div class="section-label"><i class="fa-solid fa-bolt"></i> Expertise</div>
+        <h2 class="section-title">What I <span>Do</span></h2>
+        <div class="what-i-do-grid">
+          <div class="wid-card">
+            <div class="wid-icon"><i class="fa-solid fa-robot"></i></div>
+            <div class="wid-title">Generative AI & LLMs</div>
+            <div class="wid-desc">Building domain-specific chatbots and Q&A systems with LangChain, FAISS, Gemini API, and RAG pipelines.</div>
+          </div>
+          <div class="wid-card">
+            <div class="wid-icon"><i class="fa-solid fa-eye"></i></div>
+            <div class="wid-title">Computer Vision</div>
+            <div class="wid-desc">Real-time image recognition, face detection, liveness detection, and object classification using OpenCV and TensorFlow.</div>
+          </div>
+          <div class="wid-card">
+            <div class="wid-icon"><i class="fa-solid fa-comment-dots"></i></div>
+            <div class="wid-title">NLP & Text Analytics</div>
+            <div class="wid-desc">Text classification, NER, summarization, and document intelligence using spaCy, Transformers, and Hugging Face.</div>
+          </div>
+          <div class="wid-card">
+            <div class="wid-icon"><i class="fa-solid fa-chart-bar"></i></div>
+            <div class="wid-title">Data Science & ML</div>
+            <div class="wid-desc">End-to-end ML pipelines - EDA, feature engineering, model training, evaluation, and data visualization with Power BI.</div>
+          </div>
+          <div class="wid-card">
+            <div class="wid-icon"><i class="fa-solid fa-laptop-code"></i></div>
+            <div class="wid-title">Full Stack & Mobile</div>
+            <div class="wid-desc">Building web and mobile products with Next.js, React, TypeScript, Flutter, iOS, Android, REST APIs, and backend integrations.</div>
+          </div>
+          <div class="wid-card">
+            <div class="wid-icon"><i class="fa-solid fa-microchip"></i></div>
+            <div class="wid-title">IoT & Hardware</div>
+            <div class="wid-desc">Arduino programming, ESP32, Arduino Uno R3, sensor integration, IoT workflows, PCB concepts, and hardware prototyping.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interests -->
+      <div class="reveal">
+        <div class="section-label"><i class="fa-solid fa-star"></i> Interests</div>
+        <h2 class="section-title">Beyond the <span>Code</span></h2>
+        <div class="interests-grid">
+          <div class="interest-chip"><i class="fa-solid fa-brain"></i> AI Research</div>
+          <div class="interest-chip"><i class="fa-solid fa-book-open"></i> Open Source</div>
+          <div class="interest-chip"><i class="fa-solid fa-graduation-cap"></i> EdTech</div>
+          <div class="interest-chip"><i class="fa-solid fa-robot"></i> Robotics</div>
+          <div class="interest-chip"><i class="fa-solid fa-chart-pie"></i> Data Viz</div>
+          <div class="interest-chip"><i class="fa-solid fa-wand-magic-sparkles"></i> GenAI</div>
+          <div class="interest-chip"><i class="fa-solid fa-puzzle-piece"></i> Problem Solving</div>
+          <div class="interest-chip"><i class="fa-solid fa-users"></i> Mentoring</div>
+          <div class="interest-chip"><i class="fa-solid fa-mobile-screen-button"></i> Mobile Apps</div>
+          <div class="interest-chip"><i class="fa-solid fa-microchip"></i> IoT Hardware</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION SECTION -->
+<section class="education-section">
+  <div class="section-header center reveal">
+    <div class="section-label"><i class="fa-solid fa-graduation-cap"></i> Education</div>
+    <h2 class="section-title">Academic <span>Background</span></h2>
+  </div>
+
+  <div style="max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:24px;">
+    <div class="edu-card reveal">
+      <div class="edu-icon"><i class="fa-solid fa-university"></i></div>
+      <div>
+        <div class="edu-year"><i class="fa-regular fa-calendar"></i> 2019 - 2023</div>
+        <div class="edu-degree">Bachelor of Engineering - Computer Science & Engineering</div>
+        <div class="edu-school">Sathyabama Institute of Science and Technology, Chennai</div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+          <div class="edu-cgpa"><i class="fa-solid fa-star"></i> CGPA: 8.12 / 10</div>
+          <span class="tag">B.E. CSE</span>
+          <span class="tag">2019-2023</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="edu-card reveal delay-1">
+      <div class="edu-icon"><i class="fa-solid fa-school"></i></div>
+      <div>
+        <div class="edu-year"><i class="fa-regular fa-calendar"></i> 2018 - 2019</div>
+        <div class="edu-degree">Higher Secondary Certificate (12th Grade)</div>
+        <div class="edu-school">Tamil Nadu State Board</div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+          <span class="tag">Mathematics & Science Stream</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="logo-badge">PB</div>
+        <div class="logo-text">
+          <div class="logo-name">Prasanna B</div>
+          <div class="logo-role">AI & ML Engineer</div>
+        </div>
+      </div>
+      <p>Building intelligent AI products with Python, LangChain, TensorFlow, and Gemini API.</p>
+      <div class="footer-social">
+        <a href="https://github.com/prasannab4362" target="_blank" class="social-btn"><i class="fa-brands fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/prasanna-balaji18/" target="_blank" class="social-btn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="mailto:prasannamb4362@gmail.com" class="social-btn"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-heading">Quick Links</div>
+      <ul class="footer-links">
+        <li><a href="index.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Home</a></li>
+        <li><a href="about.html"><i class="fa-solid fa-chevron-right fa-xs"></i> About</a></li>
+        <li><a href="skills.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Skills</a></li>
+        <li><a href="projects.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Projects</a></li>
+        <li><a href="experience.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Experience</a></li>
+        <li><a href="contact.html"><i class="fa-solid fa-chevron-right fa-xs"></i> Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Contact</div>
+      <ul class="footer-links">
+        <li><a href="mailto:prasannamb4362@gmail.com"><i class="fa-solid fa-envelope fa-xs"></i> prasannamb4362@gmail.com</a></li>
+        <li><a href="tel:+918610318934"><i class="fa-solid fa-phone fa-xs"></i> +91 8610318934</a></li>
+        <li><a href="#"><i class="fa-solid fa-location-dot fa-xs"></i> Coimbatore, Tamil Nadu</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 <span>Prasanna B</span>. Crafted with <span>heart</span> & Python.</p>
+    <p>AI & ML Engineer | Coimbatore, India</p>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
+
+
