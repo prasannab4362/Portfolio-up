@@ -1,0 +1,17 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <path d="M112 381V130h103c32 0 57 7 74 22 18 15 27 37 27 65 0 27-9 49-28 65-19 16-45 24-78 24h-39v75h-59Zm59-123h38c15 0 26-3 34-10 8-7 12-17 12-30s-4-23-12-30c-8-7-19-10-34-10h-38v80Zm167 123V130h96c31 0 56 6 73 19 17 13 26 32 26 57 0 15-4 28-12 39-8 11-20 20-35 25 18 4 32 13 42 26 10 13 15 29 15 48 0 27-9 48-27 62-18 14-44 21-78 21h-100Zm59-149h35c13 0 23-3 30-9 7-6 10-14 10-25 0-12-4-21-11-27-7-6-18-9-32-9h-32v70Zm0 103h38c15 0 26-3 34-10 8-7 12-16 12-29 0-13-4-23-11-30-8-7-19-10-34-10h-39v79Z" fill="white"/>
+  <path d="M90 102c42-39 93-59 152-59 95 0 177 56 214 136" stroke="url(#shine)" stroke-width="16" stroke-linecap="round" opacity=".9"/>
+  <path d="M64 411c55 39 119 58 192 58 70 0 133-18 188-53" stroke="white" stroke-width="10" stroke-linecap="round" opacity=".18"/>
+  <defs>
+    <linearGradient id="bg" x1="70" y1="58" x2="448" y2="472" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#34D399"/>
+      <stop offset=".46" stop-color="#10B981"/>
+      <stop offset="1" stop-color="#047857"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="87" y1="80" x2="426" y2="176" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ECFDF5"/>
+      <stop offset="1" stop-color="#6EE7B7"/>
+    </linearGradient>
+  </defs>
+</svg>
