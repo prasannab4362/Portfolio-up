@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ── Scroll Reveal ────────────────────────────────────────
-  const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -257,6 +257,21 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 3000);
     });
   }
+
+  // ── Stagger Grid Items ──────────────────────────────────
+  document.querySelectorAll('.stagger-grid').forEach(grid => {
+    const items = grid.querySelectorAll('.stagger-item');
+    if (!items.length) return;
+    const sObs = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        items.forEach((item, i) => {
+          setTimeout(() => item.classList.add('in-view'), i * 55);
+        });
+        sObs.unobserve(grid);
+      }
+    }, { threshold: 0.05 });
+    sObs.observe(grid);
+  });
 
   // ── Tilt effect on project cards ─────────────────────────
   document.querySelectorAll('.project-card').forEach(card => {

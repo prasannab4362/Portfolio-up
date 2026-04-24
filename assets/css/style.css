@@ -732,6 +732,104 @@ section { padding: 100px 5%; }
 .delay-3 { transition-delay: 0.3s; }
 .delay-4 { transition-delay: 0.4s; }
 .delay-5 { transition-delay: 0.5s; }
+.delay-6 { transition-delay: 0.6s; }
+.delay-7 { transition-delay: 0.7s; }
+.delay-8 { transition-delay: 0.8s; }
+
+/* ---------- Reveal Scale (pop-in with spring) ---------- */
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.88);
+  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.reveal-scale.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ---------- Stagger Grid (JS-driven) ---------- */
+.stagger-item {
+  animation: stagger-in 0.55s cubic-bezier(0.4, 0, 0.2, 1) both paused;
+}
+
+.stagger-item.in-view {
+  animation-play-state: running;
+}
+
+@keyframes stagger-in {
+  from { opacity: 0; transform: translateY(18px) scale(0.94); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---------- Page Header Entrance ---------- */
+.page-header-content > * {
+  animation: ph-cascade 0.75s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.page-header-content > *:nth-child(1) { animation-delay: 0.05s; }
+.page-header-content > *:nth-child(2) { animation-delay: 0.18s; }
+.page-header-content > *:nth-child(3) { animation-delay: 0.3s; }
+.page-header-content > *:nth-child(4) { animation-delay: 0.42s; }
+
+@keyframes ph-cascade {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Timeline Dot Pulse ---------- */
+@keyframes dot-pulse {
+  0%, 100% { box-shadow: 0 0 0 3px var(--primary-pale), 0 4px 10px rgba(16,185,129,0.3); }
+  50%       { box-shadow: 0 0 0 3px var(--primary-pale), 0 0 0 9px rgba(16,185,129,0.1), 0 4px 12px rgba(16,185,129,0.35); }
+}
+
+.timeline-dot { animation: dot-pulse 2.4s ease-in-out infinite; }
+
+/* ---------- Profile Avatar Glow ---------- */
+@keyframes avatar-glow {
+  0%, 100% { box-shadow: 0 8px 30px rgba(16,185,129,0.4); }
+  50%       { box-shadow: 0 8px 45px rgba(16,185,129,0.65), 0 0 0 8px rgba(16,185,129,0.08); }
+}
+
+/* ---------- Nav Active Underline Dot ---------- */
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: 1px;
+  left: 50%;
+  width: 18px; height: 2px;
+  background: var(--primary);
+  border-radius: 2px;
+  transform: translateX(-50%);
+}
+
+/* ---------- Interest Chip / Tag Pop Hover ---------- */
+.interest-chip:hover { transform: translateY(-3px) scale(1.06); }
+
+/* ---------- Cert Card Shimmer on hover ---------- */
+.cert-card {
+  overflow: hidden;
+  position: relative;
+}
+
+.cert-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -75%;
+  width: 50%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(16,185,129,0.08), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.55s ease;
+}
+
+.cert-card:hover::after { left: 150%; }
+
+/* ---------- Competency / WID Card Glow on hover ---------- */
+.wid-card:hover .wid-icon,
+.competency-card:hover .comp-icon {
+  transform: scale(1.1) rotate(-4deg);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
 
 /* ---------- Mobile Nav Overlay ---------- */
 .mobile-menu {
