@@ -1,17 +1,102 @@
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
-  <path d="M112 381V130h103c32 0 57 7 74 22 18 15 27 37 27 65 0 27-9 49-28 65-19 16-45 24-78 24h-39v75h-59Zm59-123h38c15 0 26-3 34-10 8-7 12-17 12-30s-4-23-12-30c-8-7-19-10-34-10h-38v80Zm167 123V130h96c31 0 56 6 73 19 17 13 26 32 26 57 0 15-4 28-12 39-8 11-20 20-35 25 18 4 32 13 42 26 10 13 15 29 15 48 0 27-9 48-27 62-18 14-44 21-78 21h-100Zm59-149h35c13 0 23-3 30-9 7-6 10-14 10-25 0-12-4-21-11-27-7-6-18-9-32-9h-32v70Zm0 103h38c15 0 26-3 34-10 8-7 12-16 12-29 0-13-4-23-11-30-8-7-19-10-34-10h-39v79Z" fill="white"/>
-  <path d="M90 102c42-39 93-59 152-59 95 0 177 56 214 136" stroke="url(#shine)" stroke-width="16" stroke-linecap="round" opacity=".9"/>
-  <path d="M64 411c55 39 119 58 192 58 70 0 133-18 188-53" stroke="white" stroke-width="10" stroke-linecap="round" opacity=".18"/>
   <defs>
-    <linearGradient id="bg" x1="70" y1="58" x2="448" y2="472" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#34D399"/>
-      <stop offset=".46" stop-color="#10B981"/>
-      <stop offset="1" stop-color="#047857"/>
+    <!-- Background gradient: top-left mint → center emerald → bottom-right forest -->
+    <linearGradient id="bg" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#34D399"/>
+      <stop offset="42%"  stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#047857"/>
     </linearGradient>
-    <linearGradient id="shine" x1="87" y1="80" x2="426" y2="176" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#ECFDF5"/>
-      <stop offset="1" stop-color="#6EE7B7"/>
+    <!-- Top arc shimmer -->
+    <linearGradient id="arc" x1="88" y1="86" x2="424" y2="86" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#ECFDF5"/>
+      <stop offset="100%" stop-color="#6EE7B7"/>
     </linearGradient>
+    <!-- Subtle text shadow -->
+    <filter id="shadow" x="-8%" y="-8%" width="116%" height="116%">
+      <feDropShadow dx="0" dy="5" stdDeviation="10" flood-color="#022c22" flood-opacity="0.35"/>
+    </filter>
+    <!-- Inner glow on letters -->
+    <filter id="glow" x="-4%" y="-4%" width="108%" height="108%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
   </defs>
+
+  <!-- ── Rounded-square background ── -->
+  <rect width="512" height="512" rx="108" fill="url(#bg)"/>
+
+  <!-- ── Subtle inner border ring ── -->
+  <rect x="14" y="14" width="484" height="484" rx="98"
+        fill="none" stroke="white" stroke-width="1.5" opacity="0.2"/>
+
+  <!-- ── Faint grid / circuit dots ── -->
+  <circle cx="74"  cy="74"  r="4.5" fill="white" opacity="0.22"/>
+  <circle cx="438" cy="74"  r="4.5" fill="white" opacity="0.22"/>
+  <circle cx="74"  cy="438" r="4.5" fill="white" opacity="0.14"/>
+  <circle cx="438" cy="438" r="4.5" fill="white" opacity="0.14"/>
+  <circle cx="256" cy="64"  r="3"   fill="white" opacity="0.18"/>
+
+  <!-- Neural edge lines (very subtle) -->
+  <line x1="74"  y1="74"  x2="256" y2="64"  stroke="white" stroke-width="1" opacity="0.09"/>
+  <line x1="256" y1="64"  x2="438" y2="74"  stroke="white" stroke-width="1" opacity="0.09"/>
+
+  <!-- ── Top arc shimmer (the "shine" above PB) ── -->
+  <path d="M 88 88 Q 256 36 424 88"
+        stroke="url(#arc)" stroke-width="13" stroke-linecap="round" fill="none" opacity="0.9"/>
+
+  <!-- ══════════════════════════════════
+       P  LETTER  (evenodd so bowl is hollow)
+       Bounds: x 54–230, y 120–420, stem 60px wide
+       ══════════════════════════════════ -->
+  <path fill-rule="evenodd" fill="white" filter="url(#shadow)"
+    d="
+      M  54 420
+      L  54 120
+      L 190 120
+      C 242 120 270 148 270 204
+      C 270 260 242 288 190 288
+      L 114 288
+      L 114 420
+      Z
+      M 114 176
+      L 182 176
+      C 204 176 212 188 212 204
+      C 212 220 204 232 182 232
+      L 114 232
+      Z
+    "
+  />
+
+  <!-- ══════════════════════════════════
+       B  LETTER  (evenodd so bumps are hollow)
+       Bounds: x 284–458, y 120–420, stem 60px wide
+       ══════════════════════════════════ -->
+  <path fill-rule="evenodd" fill="white" filter="url(#shadow)"
+    d="
+      M 284 420
+      L 284 120
+      L 398 120
+      C 444 120 468 142 468 184
+      C 468 208 458 226 440 236
+      C 464 246 478 268 478 298
+      C 478 344 452 420 398 420
+      Z
+      M 344 172
+      L 390 172
+      C 410 172 416 180 416 188
+      C 416 200 408 208 388 208
+      L 344 208
+      Z
+      M 344 256
+      L 394 256
+      C 418 256 426 266 426 282
+      C 426 300 416 312 390 312
+      L 344 312
+      Z
+    "
+  />
+
+  <!-- ── Bottom subtle arc ── -->
+  <path d="M 130 448 Q 256 466 382 448"
+        stroke="white" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.13"/>
 </svg>
