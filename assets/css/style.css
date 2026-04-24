@@ -1,5 +1,5 @@
-/* ============================================================
-   PRASANNA B — Portfolio Stylesheet
+﻿/* ============================================================
+   PRASANNA B -- Portfolio Stylesheet
    Theme: Emerald Green + White
    ============================================================ */
 
@@ -302,7 +302,26 @@ section { padding: 100px 5%; }
   color: var(--text-dark);
   line-height: 1.2;
   margin-bottom: 16px;
+  position: relative;
 }
+
+.section-header.visible .section-title::after {
+  width: 56px;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: var(--gradient);
+  border-radius: 2px;
+  transition: width 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.section-header.center .section-title::after { left: 50%; transform: translateX(-50%); }
 
 .section-title span {
   background: var(--gradient);
@@ -399,7 +418,7 @@ section { padding: 100px 5%; }
 }
 
 .card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-6px) scale(1.015);
   border-color: var(--border-strong);
   box-shadow: var(--shadow-lg);
 }
@@ -776,3 +795,4 @@ section { padding: 100px 5%; }
 @media (max-width: 480px) {
   .btn-lg { padding: 13px 24px; font-size: 0.9rem; }
 }
+
